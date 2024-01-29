@@ -39,9 +39,12 @@ $(document).ready(function() {
 
     function updateLanguageSwitcherLinks(currentLang) {
         var regex = new RegExp('^(\/' + currentLang + ')(\/|$)');
-        var hash = window.location.hash;
+        var hash = window.location.hash; // Get the current hash
+
+
         $('.language-switcher .language').each(function() {
             var lang = $(this).data('lang');
+
             var newPath = window.location.pathname.replace(regex, '\/' + lang + '\/');
             if (!window.location.pathname.match(regex)) {
                 newPath = '/' + lang + window.location.pathname;
@@ -55,6 +58,7 @@ $(document).ready(function() {
                 $(this).removeClass('active');
             }
         });
+
         // $('.language-switcher .language').each(function() {
         //     var lang = $(this).data('lang');
 
