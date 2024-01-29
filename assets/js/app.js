@@ -34,26 +34,42 @@ $(document).ready(function() {
     //update links
     function updateLanguageSwitcherLinks(currentLang) {
         var regex = new RegExp('^(\/' + currentLang + ')(\/|$)');
-
+        var hash = window.location.hash; // Get the current hash
 
         $('.language-switcher .language').each(function() {
             var lang = $(this).data('lang');
-
-            var newPath = window.location.pathname.replace(regex, '\/' + lang + '\/');
-
+            var newPath = window.location.pathname.replace(regex, '/' + lang + '/');
+        
             if (!window.location.pathname.match(regex)) {
                 newPath = '/' + lang + window.location.pathname;
             }
-
-            $(this).attr('href', newPath);
-
+            newPath = newPath.replace(/\/\/+/g, '/'); // Correct any double slashes
+        
+            $(this).attr('href', newPath + hash); // Append the hash here
+        
             // Highlight the active language
-            if (lang === currentLang) {
-                $(this).addClass('active');
-            } else {
-                $(this).removeClass('active');
-            }
+            $(this).toggleClass('active', lang === currentLang);
+            
+            // Debugging: Log the class application for each link
+            console.log(lang, lang === currentLang, $(this).attr('class'));
         });
+        // $('.language-switcher .language').each(function() {
+        //     var lang = $(this).data('lang');
+
+        //     var newPath = window.location.pathname.replace(regex, '\/' + lang + '\/');
+        //     if (!window.location.pathname.match(regex)) {
+        //         newPath = '/' + lang + window.location.pathname;
+        //     }
+
+        //     $(this).attr('href', newPath);
+
+        //     // Highlight the active language
+        //     if (lang === currentLang) {
+        //         $(this).addClass('active');
+        //     } else {
+        //         $(this).removeClass('active');
+        //     }
+        // });
     }
     // update switcher
     var defaultLang = 'en';

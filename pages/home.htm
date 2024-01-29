@@ -28,7 +28,7 @@ use Pensoft\Articles\Models\Article;
 
 function onStart(){
     //main
-    $this['highlights'] = Article::news()->descPublished()->take(3)->get()->map(function($item){
+    $this['highlights'] = Article::news()->where('published', 'true')->descPublished()->take(3)->get()->map(function($item){
         $item->content = str_limit(strip_tags($item->content), 120);
         $item->href = $item->slug;
         return $item;
@@ -94,7 +94,7 @@ function onStart(){
 <!-- </div> -->
 
 <!-- NEWS highlights Carousel -->
-<div class="container-fluid">
+<div class="container-fluid mb-4">
     <div class="container highlights-news">
         <div class="highlights-head">
             <div class="subhead">
