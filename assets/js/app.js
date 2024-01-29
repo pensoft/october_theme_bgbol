@@ -24,6 +24,7 @@ $(document).ready(function() {
 
     $("nav").removeClass("no-transition");
 
+
     /*
      * Handle language change
     **/
@@ -31,49 +32,42 @@ $(document).ready(function() {
         var match = url.match(/^\/(bg|en)(\/|$)/);
         return (match && match[1]) || defaultLang;
     }
+
     //update links
+    var defaultLang = 'en';
+    var currentLang = getLanguageFromUrl(window.location.pathname, defaultLang);
+    console.log("Current language " + currentLang);
+
     function updateLanguageSwitcherLinks(currentLang) {
         var regex = new RegExp('^(\/' + currentLang + ')(\/|$)');
-        var hash = window.location.hash; // Get the current hash
+        var hash = window.location.hash;
+
+        console.log("hash " + hash);
 
         $('.language-switcher .language').each(function() {
             var lang = $(this).data('lang');
+
+            if (lang === currentLang) {
+                $(this).addClass('active');
+            } else {
+                $(this).removeClass('active');
+            }
+
+            var urlSegments = window.location.pathname.split('/');
+            var hasMembers = (urlSegments[1] === 'members' || urlSegments[2] === 'members');
+
             var newPath = window.location.pathname.replace(regex, '/' + lang + '/');
-        
             if (!window.location.pathname.match(regex)) {
                 newPath = '/' + lang + window.location.pathname;
             }
-            newPath = newPath.replace(/\/\/+/g, '/'); // Correct any double slashes
-        
-            $(this).attr('href', newPath + hash); // Append the hash here
-        
-            // Highlight the active language
-            $(this).toggleClass('active', lang === currentLang);
-            
-            // Debugging: Log the class application for each link
-            console.log(lang, lang === currentLang, $(this).attr('class'));
+
+            if (hasMembers) {
+                newPath = newPath.replace(/\/\/+/g, '/');
+                $(this).attr('href', newPath + (hasMembers ? window.location.hash : ''));
+            }
         });
-        // $('.language-switcher .language').each(function() {
-        //     var lang = $(this).data('lang');
-
-        //     var newPath = window.location.pathname.replace(regex, '\/' + lang + '\/');
-        //     if (!window.location.pathname.match(regex)) {
-        //         newPath = '/' + lang + window.location.pathname;
-        //     }
-
-        //     $(this).attr('href', newPath);
-
-        //     // Highlight the active language
-        //     if (lang === currentLang) {
-        //         $(this).addClass('active');
-        //     } else {
-        //         $(this).removeClass('active');
-        //     }
-        // });
     }
     // update switcher
-    var defaultLang = 'en';
-    var currentLang = getLanguageFromUrl(window.location.pathname, defaultLang);
     updateLanguageSwitcherLinks(currentLang);
 
 
@@ -614,11 +608,17 @@ function appendSignOut() {
 
 function appendSearchAndSocialMedia(){
 	var liSearch = '<li class="nav-item search_field"><a href=\"javascript: void(0);\" onclick=\"showSearchForm();\"></a></li>';
+
+
+    var languageSwitcherHtml = '<li class=\"nav-item language_field\"><div class=\"language-switcher\"><a href=\"/bg\" class=\"language\" data-lang=\"bg\">BG</a><a href=\"/en\" class=\"language\" data-lang=\"en\">EN</a></div></li>';
+
+
 	// var liSocial = '<li class="nav-item social">' +
     //     '<a href=\"https://twitter.com/ANERISproject\" target=\"_blank\" class=\"pr p-twitter big\" target=\"_blank\"></a>' +
     //     '<a href=\"https://www.linkedin.com/company/anerisproject/\" target=\"_blank\" class=\"pr p-linkedin big\" target=\"_blank\"></a>' +
     //     '<a href=\"https://www.instagram.com/aneris_project/" target=\"_blank\" class=\"pr p-instagram big\" target=\"_blank\"></a></li>';
 	var menu = $('#menuToggle');
+	menu.find('>ul').append(languageSwitcherHtml);
 	menu.find('>ul').append(liSearch);
         // .append(liSocial);
 }

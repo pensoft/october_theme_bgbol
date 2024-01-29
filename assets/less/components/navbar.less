@@ -218,8 +218,8 @@
             align-items: center;
             flex-direction: row;
             padding-left: 0;
-            padding-right: 0;
             width: 100%;
+            padding-right: 40px;
 
             .navbar-nav {
                 justify-content: flex-start;
@@ -510,6 +510,28 @@
       margin: 0 auto;
       background-size: contain;
     }
+
+      .language_field{
+          width: 100%;
+
+          .language-switcher{
+              width: 50%;
+              margin: 20px auto 0  auto;
+              a{
+                  color: white;
+                  padding: 5px 0;
+                  float: left;
+                  width: 100%;
+                  font-size: 20px;
+                  font-weight: bold;
+                  margin-top: 0px;
+                  &.active{
+                      color: #005957;
+                  }
+              }
+          }
+      }
+
       .dropdown-menu{
               padding-left: 0!important;
       }
