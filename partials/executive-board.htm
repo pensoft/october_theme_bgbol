@@ -1,0 +1,45 @@
+<!-- Executive Board -->
+<div class="container executive-board" id="executive-board">
+    {% if executives.count > 0%}
+    <div class="row">
+        {% for executive in executives %}
+        <div class="col-md-6 col-xs-12">
+            <div class="member-card">
+                <div class="row member-intro">
+                        <div class="member-avatar">
+                            <img src="{{ executive.avatar.thumb(104, 104, {mode: 'crop'}) }}" alt="{{ executive.names }}">
+                        </div>
+                    <div class="member-info">
+                        <div class="member-name">{{ executive.names }}</div>
+                        <div class="member-position">{{ executive.position }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="member-description">
+                            {{ executive.content|slice(0, 255)|raw }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 institution-full" style="display: none;">
+                        {{executive.content|raw}}
+                    </div>
+                    <div class="col-xs-12">
+                        <a href="" class="full-description-toggle" 
+                        data-read-more="{{ 'Read full description' | _ }}"
+                        data-hide="{{ 'Hide full description' | _ }}">
+                         <span class="toggle-text">{{ 'Read full description' | _ }}</span>
+                         <span class="plusminus"></span>
+                     </a>
+                     
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="d-flex center-xs justify-content-center text-center">
+        <p>{{'No records found.'|_}}</p>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,45 @@
+<!-- Governing Board -->
+<div class="container governing-board" id="governing-board">
+    {% if governers.count > 0 %}
+    <div class="row">
+        {% for governer in governers %}
+        <div class="col-md-6 col-xs-12">
+            <div class="member-card">
+                <div class="row member-intro">
+                        <div class="member-avatar">
+                            <img src="{{ governer.avatar.thumb(104, 104, {mode: 'crop'}) }}" alt="{{ governer.names }}">
+                        </div>
+                    <div class="member-info">
+                        <div class="member-name">{{ governer.names }}</div>
+                        <div class="member-position">{{ governer.position }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="member-description">
+                            {{ governer.content|slice(0, 255)|raw }}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 institution-full" style="display: none;">
+                        {{governer.content|raw}}
+                    </div>
+                    <div class="col-xs-12">
+                        <a href="" class="full-description-toggle" 
+                        data-read-more="{{ 'Read full description' | _ }}"
+                        data-hide="{{ 'Hide full description' | _ }}">
+                         <span class="toggle-text">{{ 'Read full description' | _ }}</span>
+                         <span class="plusminus"></span>
+                     </a>
+                                          
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="d-flex justify-content-center">
+            <p>No records found.</p>
+        </div>
+    {% endif %}
+</div>

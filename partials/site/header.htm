@@ -1,0 +1,59 @@
+[menu]
+start = "id-11"
+activeNode = 0
+listItemClasses = "nav-item"
+primaryClasses = "navbar-nav"
+secondaryClasses = "dropdown-menu"
+numberOfLevels = 2
+
+[localePicker]
+forceUrl = 0
+
+[alternateHrefLangElements]
+==
+<!-- Navigation -->
+<nav class="navbar fixed pr-1 pl-1" id="headernavbar">
+    <div id="menuToggle">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+        {% component 'menu' %}
+    </div>
+
+    <a href="{{'home'|page}}" class="navbar-brand" id="navbar-brand" style="background-image: url('{{ this.theme.site_logo.getPath() }}'); background-position: center; background-size: contain;"></a>
+
+    <div class="navbar-collapse collapse center-xs hidden-xs" id="headerNavbarNav" style="display: none;">
+        {% component 'menu' %}
+        <div class="language-switcher">
+            <a href="/bg" class="language" data-lang="bg">BG</a>
+            <a href="/en" class="language" data-lang="en">EN</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+{% if page_id != 'search' and page_id != 'home' %}
+<div class="header-video {{ page_id }}">
+    <video autoplay loop muted playsinline class="header-video-media">
+        <source src="{{ 'lizard.mp4'|media }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="header-overlay-content">
+        <div class="header-text" data-aos="fade-up">
+            <h1 data-aos="fade-up" class="header-title">
+                {% if page_title %}
+                    {{ page_title |_}}
+                {% else %}
+                    {{ site_name |_}}
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if page_id == 'home' and tag_line %}
+<p>{{tag_line}}</p>
+{% endif %}

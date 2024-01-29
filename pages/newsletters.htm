@@ -1,0 +1,87 @@
+url = "/newsletters"
+layout = "default"
+title = "Newsletters"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+header_image = "about-header-.jpg"
+
+[builderList mediaNewsletterList]
+modelClass = "pensoft\Media\Models\Newsletters"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[siteSearchInclude]
+==
+<?php
+use Pensoft\Media\Models\Newsletters;
+use System\Models\File;
+
+function onStart(){
+	$this['newsletters'] =  Newsletters::orderBy('date', 'desc')->get();
+	if(get('download')){
+		$file = File::find((int)get('download'));
+		$file_name = $file->getLocalPath();
+$recordName = get('file_name') ? get('file_name') : 'TRANSPATH_newsletter';
+$ext= $file->getExtension();
+
+if (file_exists($file_name)) {
+header('Content-Description: File Transfer');
+header('Content-Type: application/octet-stream');
+header("Content-Type: application/force-download");
+header('Content-Disposition: attachment; filename='.$recordName .'.'. $ext);
+header('Content-Transfer-Encoding: binary');
+header('Expires: 0');
+header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+header('Pragma: public');
+header('Content-Length: ' . filesize($file_name));
+ob_clean();
+flush();
+readfile($file_name);
+exit();
+}
+return Redirect::to('/newsletters');
+}
+}
+?>
+==
+{% component 'siteSearchInclude' %}
+{% if newsletters.count %}
+
+<div class="container newsletter-container">
+    <div class="row around-xs">
+        {% for record in newsletters %}
+            <div class="col-md-4 col-xs-12 text-center newsletters-card mb-3">
+                <div class="newsletter-card-image-container" style="background: url({{record.newsletter_image|resize(380, 220,{ mode: 'crop' })}}) center center no-repeat;" title="{{record.name}}"></div>
+                <p class="newsletters-card-date mt-2">{{ record.date|date("F Y") }}</p>
+                <p class="newsletters-card-title " style="min-height: 31px;">{{record.name}}</p>
+                {% if record.url %}
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <a class="link btn btn-primary btn-newsletters" style="max-width: unset" href="{{record.url}}" target="_blank">Read the newsletter</a>
+                    </div>
+                </div>
+                {% else %}
+                {% if record.file %}
+                <div class="col-xs-12">
+                    <div class="text-center">
+                        <a class="link btn btn-primary btn-newsletters" style="max-width: unset" href="{{ '/newsletters?download=' ~ record.file.id ~ '&file_name=' ~ record.name|url_encode }}">Download the newsletter</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% else %}
+<script>
+    window.location.href = 'https://dashboard.mailerlite.com/forms/457412/91683683093710364/share';
+</script>
+{% endif %}

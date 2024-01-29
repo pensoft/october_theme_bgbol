@@ -1,0 +1,42 @@
+<!-- Partner institutions -->
+<div class="container partner-institutions" id="institutions">
+    {% if institutions.count > 0%}
+
+    {% for institution in institutions %}
+    <div class="col-xs-12 institutions">
+        <div class="row">
+            <div class="col-xs-12 institution-intro">
+                <div class="row">
+                    <div class="col-xs-12 col-md-2 start-md center-xs instituion-cover">
+                        <img src="{{institution.cover.thumb(119, auto, {mode: 'crop'})}}">
+                    </div>
+                    <div class="col-xs-12 col-md-10 start-md center-xs instituion-head">
+                        {{institution.instituion}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 institution-description">
+                {{ institution.content|slice(0, 255)|raw }}
+            </div>
+            <div class="col-xs-12 institution-full" style="display: none;">
+                {{institution.content|raw}}
+            </div>
+            <div class="col-xs-12">
+                <a href="" class="full-description-toggle" 
+                data-read-more="{{ 'Read full description' | _ }}"
+                data-hide="{{ 'Hide full description' | _ }}">
+                 <span class="toggle-text">{{ 'Read full description' | _ }}</span>
+                 <span class="plusminus"></span>
+             </a>
+             
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <div class="d-flex center-xs justify-content-center text-center">
+        <p>{{'No records found.'|_}}</p>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,199 @@
+.partner-tabs{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+
+    a{
+        border: 2px solid #DEDEDE;
+        border-radius: 27px;
+        padding: 20px 40px;
+        color: #14493E;
+
+        &.active, &:hover{
+            border: 2px solid #4CC682;
+        }
+
+        &:not(:last-child){
+            margin-right: 20px;
+            .breakpoint-small-down({
+                margin-right: 0;
+            });
+        }
+
+        .breakpoint-large-down({
+            margin-bottom: 18px;
+        });
+
+    }
+}
+
+.partner-institutions{
+    overflow: hidden;
+
+
+    .institutions{
+        padding: 20px 60px !important;
+        background: @white-color 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 25px #00000014;
+        border-radius: 8px;
+        margin-bottom: 80px;
+
+        .institution-intro{
+            margin-bottom: 0px 5px;
+            padding: 20px;
+
+            .instituion-cover{
+                img{
+                    height: auto;
+                    width: auto;
+                    max-height: 70px;
+                    object-fit: contain;
+                    .breakpoint-large-down({
+                        max-width: 100%;
+                    });
+                }
+            }
+
+            .instituion-head{
+                text-align: left;
+                font-size: 27px;
+                line-height: 1.3em;
+                letter-spacing: 0px;
+                color: #14493E;
+            }
+        }
+        .breakpoint-large-down({
+            padding: 20px !important;
+        });
+    }
+
+}
+
+.governing-board, .executive-board, .partner-institutions{
+
+    p{
+        font-size: 17px;
+        line-height: 1.6em;
+        color:#AFAFAF;
+    }
+
+    .institution-description, .member-description {
+        position: relative;
+        text-align: left;
+        // max-height: 100px;
+        overflow: hidden;
+        &::after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80%;
+            background: transparent linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%) 0% 0% no-repeat padding-box;
+        }
+    }
+
+    .full-description-toggle {
+        position: relative;
+        max-width: fit-content;
+
+        .plusminus {
+            display: inline-block;
+            position: relative;
+            // margin-left: 5px;
+
+            &:after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 50%;
+                margin-top: -12px;
+                width: 12px;
+                height: 12px;
+                background: url('../../assets/images/partners-arrow.svg') no-repeat center center;
+                background-size: contain;
+                pointer-events: none;
+                transition: transform 0.3s ease;
+            }
+        }
+
+        &.toggled .plusminus:after {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.governing-board, .executive-board{
+    .member-card{
+        background: @white-color 0% 0% no-repeat padding-box;
+        box-shadow: 0px 0px 25px #00000014;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 40px;
+        max-width: 566px;
+        .row{
+            .col-xs-12{
+                padding-left: 0 !important;
+            }
+        }
+    }
+
+    .member-intro{
+        margin-bottom: 14px;
+
+        /* member cover **/
+        .member-avatar{
+            border-radius: 8px;
+            width: 104px;
+            height: 104px;
+            img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 8px;
+
+                // .breakpoint-large-down({
+                //     max-width: 100%;
+                // });
+            }
+
+            .breakpoint-large-down({
+                margin: 0 auto;
+            });
+        }
+
+        /* name, title **/
+        .member-info{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 16px;
+            margin-left: 16px;
+            .member-name{
+                line-height: 1.2em;
+                margin-bottom: 10px;
+                color: #14493E;
+                text-align: left;
+                font-size: 27px;
+                .breakpoint-large-down({
+                    text-align: center;
+                });
+            }
+            .member-position{
+                text-align: left;
+                font-size: 20px;
+                letter-spacing: 0px;
+                color: #B4B4B4;
+                .breakpoint-large-down({
+                    text-align: center;
+                });
+            }
+            .breakpoint-large-down({
+                width: 100%;
+                margin: 20px 0;
+            });
+        }
+    }
+}

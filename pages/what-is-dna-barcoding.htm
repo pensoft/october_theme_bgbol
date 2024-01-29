@@ -1,0 +1,43 @@
+url = "/what-is-dna-barcoding"
+layout = "default"
+title = "What is DNA Barcoding"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[jumbotron dnametabarcoding]
+jumbotron = "dna-metabarcoding"
+title = 0
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron whydnabarcoding]
+jumbotron = "why-dna-barcoding"
+title = 0
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron accuratespeciesidentification]
+jumbotron = "accurate-species-identification"
+title = 0
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[siteSearchInclude]
+==
+{% component 'siteSearchInclude' %}
+
+<div class="container-fluid dna-barcoding-intro">
+    {% component 'dnametabarcoding' %}
+</div>
+
+<div class="container-fluid why-dna-barcoding">
+    {% component 'whydnabarcoding' %}
+</div>
+
+<div class="container-fluid accurate-species-identification">
+    {% component 'accuratespeciesidentification' %}
+</div>

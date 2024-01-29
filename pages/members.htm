@@ -1,0 +1,43 @@
+url = "/members"
+layout = "default"
+title = "Members"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+function onStart(){
+    use Pensoft\Partners\Models\Partners;
+    use Pensoft\Cardprofiles\Models\Profiles;
+
+    $this['institutions'] = Partners::where('type', 1)->get();
+
+    $this['governers'] =  Profiles::where('category_id',  1)->get();
+    $this['executives'] = Profiles::where('category_id',  2)->get();
+
+}
+?>
+==
+
+{% component 'siteSearchInclude' %}
+
+<!-- Partners menu -->
+<div class="container">
+    <div class="row partner-tabs center-xs">
+        <a class="active col-md-3 col-xs-12 tab-link" data-target="#institutions" href="#institutions">{{'Partner institutions'|_}}</a>
+        <a class="col-md-3 col-xs-12 tab-link" data-target="#governing-board" href="#governing-board">{{'Governing Board'|_}}</a>
+        <a class="col-md-3 col-xs-12 tab-link" data-target="#executive-board" href="#executive-board">{{'Executive Board'|_}}</a>
+    </div>
+</div>
+
+<!-- Partner institutions -->
+{% partial 'partner-institutions' institutions=institutions %}
+
+<!-- Governing Board -->
+{% partial 'governing-board' governers=governers %}
+
+<!-- Executive Board -->
+{% partial 'executive-board' executives=executives %}

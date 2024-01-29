@@ -1,0 +1,72 @@
+url = "/contact"
+layout = "default"
+title = "Contact"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+==
+<?php
+function onStart(){
+    use Pensoft\Cardprofiles\Models\Profiles;
+
+    $this['contacts'] = Profiles::where('category_id',  3)->get();
+}
+==
+
+{% component 'siteSearchInclude' %}
+
+
+<div class="container contact-container">
+    <h1>Contact us</h1>
+    {% if contacts.count > 0 %}
+    <div class="row">
+        {% for contact in contacts %}
+        <div class="col-md-6 col-xs-12">
+            <div class="member-card">
+                <div class="row member-intro">
+                        <div class="member-avatar">
+                            <img src="{{ contact.avatar.thumb(104, 104, {mode: 'crop'}) }}" alt="{{ contact.names }}">
+                        </div>
+                    <div class="member-info">
+                        {% if contact.names %}<div class="member-name">{{ contact.names }}</div>{% endif %}
+                        {% if contact.position %}<div class="member-position">{{ contact.position }}</div>{% endif %}
+                        {% if contact.department %}<div class="member-position">{{ department.position }}</div>{% endif %}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 contact-content">
+                        {% if contact.address %}
+                        <div class="row">
+                            <div class="col-md-3 col-xs-12 contacts-title">Address</div>
+                            <div class="col-md-9 col-xs-12 contacts-address">{{contact.address}}</div>
+                        </div>
+                        {% endif %}
+
+                        {% if contact.phone %}
+                        <div class="row">
+                            <div class="col-md-3 col-xs-12 contacts-title">Telephone</div>
+                            <div class="col-md-9 col-xs-12 contacts-phone">{{contact.phone}}</div>
+                        </div>
+                        {% endif %}
+
+                        {% if contact.email %}
+                        <div class="row">
+                            <div class="col-md-3 col-xs-12 contacts-title">Email</div>
+                            <div class="col-md-9 col-xs-12 contacts-email"><a href="mailto:{{contact.email}}">{{contact.email}}</a></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <div class="d-flex justify-content-center">
+            <p>No records found.</p>
+        </div>
+    {% endif %}
+</div>

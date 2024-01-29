@@ -1,0 +1,29 @@
+[cookieConsent]
+message = "This website uses cookies to ensure you get the best experience on our website."
+dismiss = "Got it!"
+learnMore = "More info"
+link = "/privacy-policy"
+theme = "dark-bottom"
+==
+==
+
+<!-- footer content -->
+<div class="container-fluid footer-background">
+    {% component 'cookieConsent' %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-xs-12 d-flex text-center justify-content-center">
+                <span>© {{'Bulgarian Barcode of Life'|_}}</span>
+            </div>
+            <div class="col-md-4 col-xs-12 contact-inf">
+                <span>{{'CONTACT'|_}}</span>
+                <span><a href="mailto:info@bgbol.org" class="btn btn-footer">{{'info@bgbol.org'|_}}</a></span>
+            </div>
+            <div class="col-md-4 col-xs-12 d-flex text-center justify-content-center">
+                <span>{{'Designed and powered by'|_}} <a href="https://pensoft.net/" target="_blank">
+                    <img class="pensoft_logo" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" alt="Pensoft logo" /></a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

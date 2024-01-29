@@ -1,0 +1,132 @@
+url = "/"
+layout = "default"
+title = "Bgbol"
+is_hidden = 0
+meta_description = "Biodiversity Building Blocks for Policy"
+seo_keywords = "keywords"
+robot_index = "index"
+robot_follow = "follow"
+
+[jumbotron about-bulgarian-barcode-life]
+jumbotron = "about-bulgarian-barcode-life"
+title = 0
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[jumbotron what-dna-barcoding]
+jumbotron = "what-dna-barcoding"
+title = 0
+background = "transperant"
+templates = "template3"
+description_limit = 0
+
+[siteSearchInclude]
+==
+<?php
+use Pensoft\Articles\Models\Article;
+
+function onStart(){
+    //main
+    $this['highlights'] = Article::news()->descPublished()->take(3)->get()->map(function($item){
+        $item->content = str_limit(strip_tags($item->content), 120);
+        $item->href = $item->slug;
+        return $item;
+    });
+}
+?>
+==
+{% component 'siteSearchInclude' %}
+
+<!-- ABOUT US -->
+<div class="container-fluid j-about-barcoding">
+    {% component 'about-bulgarian-barcode-life' %}
+</div>
+
+
+<!-- DNA Barcoding -->
+<div class="container-fluid dna-barcoding">
+    {% component 'what-dna-barcoding' %}
+</div>
+
+<!-- PROJECTS -->
+<!-- <div class="container-fluid projects-background"> -->
+    <!-- <div class="container">
+        <div class="subhead">
+            projects
+        </div>
+        <div class="row">
+            <div class="start-xs">
+                <h1 class="jumbo-h1">Our projects</h1>
+            </div>
+            <div class="arrows end-xs">
+                <div class="container project-container">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12 project-img">
+                            <div class="project-content">
+                                <h2>Lorem ipsum dolor</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12 project-img">
+                            <div class="project-content">
+                                <h2>Lorem ipsum dolor</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12 project-img">
+                            <div class="project-content">
+                                <h2>Lorem ipsum dolor</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12 project-img">
+                            <div class="project-content">
+                                <h2>Lorem ipsum dolor</h2>
+                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!-- </div> -->
+
+<!-- NEWS highlights Carousel -->
+<div class="container-fluid">
+    <div class="container highlights-news">
+        <div class="highlights-head">
+            <div class="subhead">
+                news
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-6 col-xs-12">
+                    <h1 class="jumbo-h1">{{'Our latest news'|_}}</h1>
+                </div>
+                <div class="col-md-6 col-xs-12 text-right">
+                    <a href="/news" class="btn btn-primary">{{'View all'|_}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="news-carousel">
+            {% for highlight in highlights %}
+            <div class="home-news-highlights">
+                <div class="row news-item">
+                    <div class="col-md-6 col-xs-12 news-content">
+                        <div class="news-title">{{ highlight.title }}</div>
+                        <p class="news-date">{{ highlight.published_at|date('d.m.Y') }}</p>
+                        <div class="news-description">{{ highlight.content | raw }}</div>
+                        <div class="row read-more-row">
+                            <a href="/news/{{highlight.slug}}" class="read-more">{{'Read more' |_}}</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 home-news-cover">
+                        <img src="{{ highlight.cover.thumb(357, 299, {'mode': 'crop'})}}" alt="News image">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
