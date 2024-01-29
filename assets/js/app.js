@@ -36,36 +36,47 @@ $(document).ready(function() {
     //update links
     var defaultLang = 'en';
     var currentLang = getLanguageFromUrl(window.location.pathname, defaultLang);
-    console.log("Current language " + currentLang);
 
     function updateLanguageSwitcherLinks(currentLang) {
         var regex = new RegExp('^(\/' + currentLang + ')(\/|$)');
         var hash = window.location.hash;
-
-        console.log("hash " + hash);
-
         $('.language-switcher .language').each(function() {
             var lang = $(this).data('lang');
+            var newPath = window.location.pathname.replace(regex, '\/' + lang + '\/');
+            if (!window.location.pathname.match(regex)) {
+                newPath = '/' + lang + window.location.pathname;
+            }
+            $(this).attr('href', newPath);
 
+            // Highlight the active language
             if (lang === currentLang) {
                 $(this).addClass('active');
             } else {
                 $(this).removeClass('active');
             }
-
-            var urlSegments = window.location.pathname.split('/');
-            var hasMembers = (urlSegments[1] === 'members' || urlSegments[2] === 'members');
-
-            var newPath = window.location.pathname.replace(regex, '/' + lang + '/');
-            if (!window.location.pathname.match(regex)) {
-                newPath = '/' + lang + window.location.pathname;
-            }
-
-            if (hasMembers) {
-                newPath = newPath.replace(/\/\/+/g, '/');
-                $(this).attr('href', newPath + (hasMembers ? window.location.hash : ''));
-            }
         });
+        // $('.language-switcher .language').each(function() {
+        //     var lang = $(this).data('lang');
+
+        //     if (lang === currentLang) {
+        //         $(this).addClass('active');
+        //     } else {
+        //         $(this).removeClass('active');
+        //     }
+
+        //     var urlSegments = window.location.pathname.split('/');
+        //     var hasMembers = (urlSegments[1] === 'members' || urlSegments[2] === 'members');
+
+        //     var newPath = window.location.pathname.replace(regex, '/' + lang + '/');
+        //     if (!window.location.pathname.match(regex)) {
+        //         newPath = '/' + lang + window.location.pathname;
+        //     }
+
+        //     if (hasMembers) {
+        //         newPath = newPath.replace(/\/\/+/g, '/');
+        //         $(this).attr('href', newPath + (hasMembers ? window.location.hash : ''));
+        //     }
+        // });
     }
     // update switcher
     updateLanguageSwitcherLinks(currentLang);
