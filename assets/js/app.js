@@ -36,25 +36,25 @@ $(document).ready(function() {
     //update links
     var defaultLang = 'en';
     var currentLang = getLanguageFromUrl(window.location.pathname, defaultLang);
-    
+
     function updateLanguageSwitcherLinks(currentLang) {
         var regex = new RegExp('^(\/' + currentLang + ')(\/|$)');
-        var hash = window.location.hash; 
-    
+        var hash = window.location.hash;
+
         $('.language-switcher .language').removeClass('active');
-    
+
         $('.language-switcher .language').each(function() {
             var lang = $(this).data('lang');
             var newPath = window.location.pathname.replace(regex, '/' + lang + '/');
-    
+
             if (!window.location.pathname.match(regex)) {
                 newPath = '/' + lang + window.location.pathname;
             }
-    
+
             newPath = newPath.replace(/\/\/+/g, '/');
-    
+
             $(this).attr('href', newPath + hash);
-    
+
             if (lang === currentLang) {
                 $(this).addClass('active');
             }
@@ -111,6 +111,7 @@ $(document).ready(function() {
         showTab('#' + hash);
         window.scrollTo(0, 0);
 
+        // Update the language switcher links with the new hash
         updateLanguageSwitcherLinks(currentLang);
     });
 
@@ -118,19 +119,19 @@ $(document).ready(function() {
 
     /*
      * Partners accorion behaviour
-    **/    
+    **/
     $('.full-description-toggle').click(function(e) {
         e.preventDefault();
-    
+
         var $this = $(this);
         var $parentDiv = $this.closest('.member-card, .institutions');
         var $shortDescription = $parentDiv.find('.member-description, .institution-description');
         var $fullDescription = $parentDiv.find('.institution-full');
         var $toggleText = $this.find('.toggle-text');
-    
+
         var readMoreText = $this.data('read-more');
         var hideText = $this.data('hide');
-    
+
         $shortDescription.toggle('slow', function() {
             //animation complete
         });
@@ -141,7 +142,7 @@ $(document).ready(function() {
                 $toggleText.text(readMoreText);
             }
         });
-    
+
         $this.toggleClass('toggled');
     });
 
