@@ -36,55 +36,32 @@ $(document).ready(function() {
     //update links
     var defaultLang = 'en';
     var currentLang = getLanguageFromUrl(window.location.pathname, defaultLang);
-
+    
     function updateLanguageSwitcherLinks(currentLang) {
         var regex = new RegExp('^(\/' + currentLang + ')(\/|$)');
-        var hash = window.location.hash; // Get the current hash
-
-
+        var hash = window.location.hash; 
+    
+        $('.language-switcher .language').removeClass('active');
+    
         $('.language-switcher .language').each(function() {
             var lang = $(this).data('lang');
-
-            var newPath = window.location.pathname.replace(regex, '\/' + lang + '\/');
+            var newPath = window.location.pathname.replace(regex, '/' + lang + '/');
+    
             if (!window.location.pathname.match(regex)) {
                 newPath = '/' + lang + window.location.pathname;
             }
-            $(this).attr('href', newPath);
-
-            // Highlight the active language
+    
+            newPath = newPath.replace(/\/\/+/g, '/');
+    
+            $(this).attr('href', newPath + hash);
+    
             if (lang === currentLang) {
                 $(this).addClass('active');
-            } else {
-                $(this).removeClass('active');
             }
         });
-
-        // $('.language-switcher .language').each(function() {
-        //     var lang = $(this).data('lang');
-
-        //     if (lang === currentLang) {
-        //         $(this).addClass('active');
-        //     } else {
-        //         $(this).removeClass('active');
-        //     }
-
-        //     var urlSegments = window.location.pathname.split('/');
-        //     var hasMembers = (urlSegments[1] === 'members' || urlSegments[2] === 'members');
-
-        //     var newPath = window.location.pathname.replace(regex, '/' + lang + '/');
-        //     if (!window.location.pathname.match(regex)) {
-        //         newPath = '/' + lang + window.location.pathname;
-        //     }
-
-        //     if (hasMembers) {
-        //         newPath = newPath.replace(/\/\/+/g, '/');
-        //         $(this).attr('href', newPath + (hasMembers ? window.location.hash : ''));
-        //     }
-        // });
     }
-    // update switcher
-    updateLanguageSwitcherLinks(currentLang);
 
+    updateLanguageSwitcherLinks(currentLang);
 
 
     /*
@@ -97,6 +74,7 @@ $(document).ready(function() {
             $(this).attr('href', currentBaseUrl + '#' + hash);
         });
     }
+
     // show the selected tab
     function showTabFromHash() {
         var hash = window.location.hash;
@@ -107,12 +85,15 @@ $(document).ready(function() {
             showTab('#institutions');
         }
     }
+
     // remove active tabs
     function showTab(target) {
         $('.partner-institutions, .governing-board, .executive-board').hide();
         $(target).show();
+        // Remove active class from all tab links
         $('.tab-link').removeClass('active');
-        $('a[href$="' + target + '"]').addClass('active');
+        // Add active class only to tab links that have href ending with the target and are not part of the language switcher
+        $('.tab-link:not(.language-switcher .language)').filter('[href$="' + target + '"]').addClass('active');
     }
 
     showTabFromHash();
@@ -122,38 +103,45 @@ $(document).ready(function() {
 
     updateTabLinks();
 
+    // Bind the click event to tab links and update the language switcher accordingly
     $('.tab-link').on('click', function(e) {
         e.preventDefault();
         var hash = $(this).attr('href').split('#')[1];
         window.location.hash = '#' + hash;
         showTab('#' + hash);
         window.scrollTo(0, 0);
+
+        updateLanguageSwitcherLinks(currentLang);
     });
+
 
 
     /*
      * Partners accorion behaviour
-    **/
+    **/    
     $('.full-description-toggle').click(function(e) {
         e.preventDefault();
-
+    
         var $this = $(this);
         var $parentDiv = $this.closest('.member-card, .institutions');
         var $shortDescription = $parentDiv.find('.member-description, .institution-description');
         var $fullDescription = $parentDiv.find('.institution-full');
         var $toggleText = $this.find('.toggle-text');
-
+    
         var readMoreText = $this.data('read-more');
         var hideText = $this.data('hide');
-
-        $shortDescription.toggle('slow');
-        $fullDescription.toggle('slow');
-
-        if ($fullDescription.is(':visible')) {
-            $toggleText.text(hideText);
-        } else {
-            $toggleText.text(readMoreText);
-        }
+    
+        $shortDescription.toggle('slow', function() {
+            //animation complete
+        });
+        $fullDescription.toggle('slow', function() {
+            if ($fullDescription.is(':visible')) {
+                $toggleText.text(hideText);
+            } else {
+                $toggleText.text(readMoreText);
+            }
+        });
+    
         $this.toggleClass('toggled');
     });
 

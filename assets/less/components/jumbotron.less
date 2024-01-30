@@ -28,7 +28,8 @@
     // line-height: 1.6em;
     letter-spacing: 0px;
     color: #4CC682;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
+    
     .breakpoint-large-down({
         max-width: unset;
         margin-top: 25px;
@@ -64,77 +65,50 @@
     }
 }
 
-/* About Bulgarian Barcode of Life **/
-.j-about-barcoding, .why-dna-metabarcoding{
-    margin-bottom: 200px;
-    .green-link{
-        display: none; //obv not currently needed
-        margin-left: 20px;
-        text-decoration: underline;
-        font-size: 20px;
-        color: #14493E;
-        cursor: pointer;
-        &:hover{
-            opacity: 0.6;
-        }
-        .breakpoint-small-down({
-            margin-left: unset;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            justify-content: center;
-        });
-    }
-    .img-container {
-        max-width: 511px;
-        max-height: 389px;
-        position: relative;
-        img {
-            z-index: 69;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        &:after {
-            content: "";
-            position: absolute;
-            z-index: -69;
-            top: 50%;
-            right: -40px;
-            transform: translateY(-50%);
-            width: 313px;
-            height: 525px;
-            border-radius: 10px;
-            opacity: 0.85;
-            background-image: linear-gradient(208deg, rgba(20, 73, 62, 0.82), rgba(56, 96, 74, 0.69)), url('../../assets/images/jumbo-bg.jpg');
-            background-repeat: no-repeat;
-            background-position: right center;
-            background-size: cover;
-            mix-blend-mode: normal;
-            .breakpoint-huge-down({
-                display: none;
-            });
-        }
-    }
+/* **/
+.about-bgbol,
+.j-about-barcoding,
+.dna-barcoding-intro, 
+.why-dna-barcoding,
+.accurate-species-identification
+{
+    min-height: 600px;
 
-    .btn-primary{
-        .breakpoint-large-down({
-            margin-bottom: 20px;
-        });
+    p{
+        text-align: left;
+        font-size: 18px;
+        line-height: 1.6em;
     }
-    .breakpoint-large-down({
-        margin-bottom: 40px;
+    .breakpoint-huge-down({
+        min-height: unset;
+        margin-top: 30px;
+        margin-bottom: 30px;
     });
 }
 
-/* DNA BARCODING **/
-.dna-barcoding, .accurate-species-identification{
-    margin-bottom: 200px;
 
-    .col-md-8, .col-md-6{
+/*  **/
+.about-bgbol,
+.j-about-barcoding, 
+.why-dna-barcoding,  
+.accurate-species-identification
+{
+    .col-md-6:has(.img-container){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+}
+
+
+/* What is DNA Barcoding? && Accurate species identification  **/
+.dna-barcoding, 
+.accurate-species-identification
+{
+    .col-md-8, 
+    .col-md-6
+    {
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -177,11 +151,6 @@
                 });
             }
         }
-        &:first-child{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
     }
     .breakpoint-large-down({
         margin-bottom: 0px;
@@ -196,24 +165,69 @@
         }
     });
 }
+
+
 .dna-barcoding{
-    img{
-        width: 681px!important;
-        height: 430px!important;
-        max-width: 100%!important;
-        object-fit: cover;
-        border-radius: 10px;
-        .breakpoint-huge-down({
-            position: unset;
-            max-width: 100%;
-        });
-    }
+    margin-bottom: 80px;
 }
+
+/* About Bulgarian Barcode of Life **/
+.j-about-barcoding{
+    margin-top: 220px;
+    margin-bottom: 80px;
+
+    .img-container {
+        max-width: 511px;
+        max-height: 389px;
+        position: relative;
+        img {
+            z-index: 69;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        &:after {
+            content: "";
+            position: absolute;
+            z-index: -69;
+            top: 50%;
+            right: -40px;
+            transform: translateY(-50%);
+            width: 313px;
+            height: 525px;
+            border-radius: 10px;
+            opacity: 0.85;
+            background-image: linear-gradient(208deg, rgba(20, 73, 62, 0.82), rgba(56, 96, 74, 0.69)), url('../../assets/images/jumbo-bg.jpg');
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: cover;
+            mix-blend-mode: normal;
+            .breakpoint-huge-down({
+                display: none;
+            });
+        }
+    }
+
+    .breakpoint-huge-down({
+        margin-top: unset;
+    });
+
+    .breakpoint-large-down({
+        margin-bottom: 40px;
+        .btn-primary{
+            margin-bottom: 20px;
+        }
+    });
+    
+}
+
+
 
 /* What is bgBOL? **/
 .about-bgbol {
-    margin-top: 200px;
-    margin-bottom: 100px;
+    margin-top: 220px;
+    margin-bottom: 80px;
     .j-image{
         position: relative;
 
@@ -273,7 +287,7 @@
 
 /* Objectives **/
 .objectives-container{
-    margin-top: 100px;
+    margin-top: 180px;
     margin-bottom: 50px;
     font-family: 'Raleway';
     text-align: left;
@@ -347,23 +361,10 @@
     });
 }
 
-
-.dna-barcoding-intro, .why-dna-metabarcoding, .accurate-species-identification{
-    margin-top: 120px;
-    margin-bottom: 80px;
-    p{
-        text-align: left;
-        font-size: 18px;
-        line-height: 1.6em;
-    }
-    .breakpoint-huge-down({
-        margin-top: 30px;
-        margin-bottom: 30px;
-    });
-}
 /* DNA metabarcoding intro **/
 .dna-barcoding-intro{
-    margin-top: 50px !important;
+    margin-top: 120px;
+
     .row{
         display: flex;
         justify-content: center;
@@ -388,6 +389,7 @@
 
     .jumbo-content{
         margin-left: 20px;
+
         p{
             text-align: left;
             font-size: 18px;
@@ -400,38 +402,76 @@
             margin-bottom: 40px;
         });
     }
+
+    .breakpoint-huge-down({
+        margin-top: 40px;
+        .metabarcoding-img{
+            order: 2;
+        }
+    });
 }
 
-/* Why metabarcoding **/
-.why-dna-metabarcoding{
+/* Why barcoding **/
+.why-dna-barcoding{
+    margin-top: 80px;
+    margin-bottom: 80px;
+
     p{
         line-height: 1.6em;
     }
-    .col-md-6{
-        z-index: 1 !important;
-        position: relative;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: center;
 
-        .img-container{
-            max-width: 453px;
-            max-height: 349px;
-            img{
-                z-index: 69 !important;
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 10px;
-            }
+    .img-container{
+        max-width: 453px;
+        max-height: 349px;
+        position: relative;
+        
+        img{
+            position: relative;
+            z-index: 69 !important;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            transform: translateY(-50%);
+            width: 313px;
+            height: 525px;
+            border-radius: 10px;
+            opacity: 0.85;
+            background-image: linear-gradient(208deg, rgba(20, 73, 62, 0.82), rgba(56, 96, 74, 0.69)), url('../../assets/images/jumbo-bg.jpg');
+            background-repeat: no-repeat;
+            background-position: right center;
+            background-size: cover;
+            mix-blend-mode: normal;
+            .breakpoint-huge-down({
+                display: none;
+            });
         }
     }
+
+    .col-md-6:has(.img-container){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .breakpoint-huge-down({
+        margin-bottom: 0px;
+    })
+
 }
 
 /* Accurate species identification **/
 .accurate-species-identification{
-    margin-bottom: 250px;
+    margin-top: unset;
+    margin-bottom: unset;
 
     //Apply order for responsive devices
     .row{
@@ -449,19 +489,15 @@
             }
         });
     }
-}
 
-/* Our porjects **/
-.projects-background{
-    padding-top: 3% !important;
-    padding-bottom: 3% !important;
-    margin-bottom: 80px;
-    background-color:#14493E;
+    .col-md-6:has(.img-container){
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 
-    .subhead{
-        background-color: #FFFFFF29;
-    }
-    .jumbo-h1{
-        color: @white-color !important;
-    }
+    .breakpoint-huge-down({
+        margin-bottom: 40px;
+    })
 }

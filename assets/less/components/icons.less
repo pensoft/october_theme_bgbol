@@ -85,8 +85,42 @@
 
     &.p-facebook{
     }
-    &.p-twitter{
 
+
+
+    &.p-linkedin,  &.p-twitter{
+      color: @white-color !important;
+      display: flex;
+      width: 69px;
+      height: 69px;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      transition: all 0.3s ease
+    }
+
+    &.p-linkedin{
+      font-size: 35px;
+      background-color: #14493EE0 !important;
+    }
+
+    &.p-twitter{
+      font-size: 25px;
+      background-color: #14493E8F !important;
+    }
+
+    &.p-linkedin:hover {
+      background-color: #4CC682 !important;
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-left: 4px;
+    }
+    
+    &.p-twitter:hover {
+      background-color: #4CC682 !important;
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-right: 4px;
     }
 
     &.p-secondary {

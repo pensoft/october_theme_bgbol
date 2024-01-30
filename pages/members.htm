@@ -18,6 +18,13 @@ function onStart(){
     $this['governers'] =  Profiles::where('category_id',  1)->get();
     $this['executives'] = Profiles::where('category_id',  2)->get();
 
+    foreach ( $this->governers as $governer) {
+        $governer->avatar_url = $governer->avatar->getThumb(104, 104, ['mode' => 'crop']);
+    }
+
+    foreach ($this->executives as $executive) {
+        $executive->avatar_url = $executive->avatar->getThumb(104, 104, ['mode' => 'crop']);
+    }
 }
 ?>
 ==
