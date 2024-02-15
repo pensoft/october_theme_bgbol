@@ -1,12 +1,19 @@
-url = "/contact"
+url = "/contacts"
 layout = "default"
-title = "Contact"
+title = "Contacts"
 is_hidden = 0
+meta_title = "Contacts"
+meta_description = "BgBOL Contacts"
 robot_index = "index"
 robot_follow = "follow"
 
 [siteSearchInclude]
 
+[viewBag]
+localeTitle[bg] = "Контакти"
+localeDescription[bg] = "БгБОЛ Контакти"
+localeMeta_title[bg] = "Контакти"
+localeMeta_description[bg] = "БгБОЛ Контакти"
 ==
 <?php
 function onStart(){
@@ -14,8 +21,8 @@ function onStart(){
 
     $this['contacts'] = Profiles::where('category_id',  3)->get();
 }
+?>
 ==
-
 {% component 'siteSearchInclude' %}
 
 

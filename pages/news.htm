@@ -2,6 +2,8 @@ url = "/news/:id?|[a-zA-Z\-0-9]"
 layout = "default"
 title = "News"
 is_hidden = 0
+meta_title = "News"
+meta_description = "Latest news from BgBOL"
 robot_index = "index"
 robot_follow = "follow"
 header_image = "header/news.jpg"
@@ -18,6 +20,11 @@ limit = 3
 thumb_width = 228
 thumb_height = 184
 
+[viewBag]
+localeTitle[bg] = "Новини"
+localeDescription[bg] = "Последни новини от БгБОЛ"
+localeMeta_title[bg] = "Новини"
+localeMeta_description[bg] = "Последни новини от БгБОЛ"
 ==
 <?php
 use Pensoft\Articles\Models\Article;
