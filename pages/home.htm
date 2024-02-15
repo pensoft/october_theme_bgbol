@@ -25,6 +25,7 @@ description_limit = 0
 ==
 <?php
 use Pensoft\Articles\Models\Article;
+use Pensoft\Projects\Models\Project;
 
 function onStart(){
     //main
@@ -33,6 +34,9 @@ function onStart(){
         $item->href = $item->slug;
         return $item;
     });
+
+    $this['projects'] = Project::orderBy('sort_order')->get();
+
 }
 ?>
 ==
@@ -50,48 +54,79 @@ function onStart(){
 </div>
 
 <!-- PROJECTS -->
-<!-- <div class="container-fluid projects-background"> -->
-    <!-- <div class="container">
+{% if projects.count > 0 %}
+<div class="container-fluid projects-background">
+    <div class="container">
         <div class="subhead">
-            projects
+            {{'projects' |_}}
         </div>
-        <div class="row">
-            <div class="start-xs">
-                <h1 class="jumbo-h1">Our projects</h1>
+
+        <!-- Desktop -->
+        <div class="container project-container project-desktop">
+            <div class="row between-xs head-row">
+                <div class="projects-h">
+                    <h1 class="jumbo-h1">{{'Our projects' |_}}</h1>
+                </div>
+                <div class="projects-arrows">
+                    <div class="prev-arrow"></div>
+                    <div class="next-arrow"></div>
+                </div>
             </div>
-            <div class="arrows end-xs">
-                <div class="container project-container">
-                    <div class="row">
-                        <div class="col-md-6 col-xs-12 project-img">
-                            <div class="project-content">
-                                <h2>Lorem ipsum dolor</h2>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
+            <div class="projects-carousel">
+                {% for project in projects|batch(2) %}
+                    <div class="slide">
+                        {% for item in project %}
+                            <div class="project-item">
+                                <img src="{{ item.cover.thumb(594, 522, {'mode': 'crop'})}}" alt="News image">
+                                <div class="row project-content">
+                                    <div class="col-md-10 col-xs-12 project-details">
+                                        <h3>{{ item.title }}</h3>
+                                        {{ item.content|slice(0, 100)| raw }}
+                                    </div>
+                                    <div class="col-md-2 col-xs-12 arrow-more">
+                                        <a href="{{item.url}}" class="arrow-more-link"></a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-xs-12 project-img">
-                            <div class="project-content">
-                                <h2>Lorem ipsum dolor</h2>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Responsive -->
+        <div class="container project-container project-mobile" style="display: none;">
+            <div class="row between-xs head-row">
+                <div class="projects-h">
+                    <h1 class="jumbo-h1">{{'Our projects' |_}}</h1>
+                </div>
+                <div class="projects-arrows-mobile">
+                    <div class="prev-arrow-mobile"></div>
+                    <div class="next-arrow-mobile"></div>
+                </div>
+            </div>
+            <div class="projects-carousel-mobile">
+                {% for item in projects %}
+                    <div class="project-item">
+                        <img src="{{ item.cover.thumb(594, 522, {'mode': 'crop'})}}" alt="News image">
+                        <div class="row project-content">
+                            <div class="col-md-10 col-xs-12 project-details">
+                                <h3>{{ item.title }}</h3>
+                                {{ item.content|slice(0, 100)| raw }}
                             </div>
-                        </div>
-                        <div class="col-md-6 col-xs-12 project-img">
-                            <div class="project-content">
-                                <h2>Lorem ipsum dolor</h2>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xs-12 project-img">
-                            <div class="project-content">
-                                <h2>Lorem ipsum dolor</h2>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt erat.</p>
+                            <div class="col-md-2 col-xs-12 arrow-more">
+                                <a href="{{item.url}}" class="arrow-more-link"></a>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
-    </div> -->
-<!-- </div> -->
+
+    </div>
+</div>
+{% endif %}
+
 
 <!-- NEWS highlights Carousel -->
 <div class="container-fluid mb-4">
