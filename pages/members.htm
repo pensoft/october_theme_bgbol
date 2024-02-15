@@ -2,11 +2,18 @@ url = "/members"
 layout = "default"
 title = "Members"
 is_hidden = 0
+meta_title = "Мembers"
+meta_description = "Members of BgBOL's Partner institutions, Governing Board and Executive Board"
 robot_index = "index"
 robot_follow = "follow"
 
 [siteSearchInclude]
 
+[viewBag]
+localeTitle[bg] = "Членове"
+localeDescription[bg] = "Членове на партньорски институции, управителен съвет и изпълнителен съвет на БгБОЛ"
+localeMeta_title[bg] = "Членове"
+localeMeta_description[bg] = "Членове на партньорски институции, управителен съвет и изпълнителен съвет на БгБОЛ"
 ==
 <?php
 function onStart(){
@@ -28,7 +35,6 @@ function onStart(){
 }
 ?>
 ==
-
 {% component 'siteSearchInclude' %}
 
 <!-- Partners menu -->
