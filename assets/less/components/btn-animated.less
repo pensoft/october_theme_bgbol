@@ -1,0 +1,225 @@
+// Variables
+@offwhite: darken(white, 2%);
+@lightgreen: #4CC682;
+// Global Styles
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: @lightgreen;
+}
+
+.view-all{
+  justify-content: end;
+  button{
+    padding: 14px 40px;
+  }
+  .breakpoint-large-down({
+    justify-content: center;
+  })
+}
+
+.green-btn-animated{
+  .material-bubble::after{
+    width: 230px;
+}
+  .breakpoint-large-down({
+    margin-bottom: 24px;
+  });
+}
+
+.project-container{
+  .material-bubble a{
+    color: @white-color;
+  }
+
+  .material-bubble::before{
+      border-color: @white-color !important;
+  }
+
+  .material-bubble::after{
+      background-color: @white-color !important;
+  }
+
+  .material-bubble:hover a{
+      color: #14493E;
+  }
+
+}
+
+.view-all-news{
+  .material-bubble a{
+    color: @link-color;
+  }
+  
+  .material-bubble::before{
+      border-color: @link-color !important;
+  }
+  
+  .material-bubble::after{
+      background-color: @link-color !important;
+      width: 180px;
+  }
+  
+  .material-bubble:hover a{
+      color: @white-color;
+  }
+  .breakpoint-large-down({
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  });
+}
+
+.intro-btn-animated{
+  .material-bubble a{
+    color: @white-color;
+  }
+  
+  .material-bubble::before{
+      border-color: @white-color !important;
+  }
+  
+  .material-bubble::after{
+      background-color: @white-color !important;
+      width: 307px;
+  }
+  
+  .material-bubble:hover a{
+      color: #14493E;
+  }
+  
+  button {
+      padding: 20px 50px;
+  }
+
+}
+
+button {
+  font-family: 'Raleway', sans-serif;
+  position: relative;
+  font-size: 18px;
+  line-height: 1.6em;
+  font-weight: 400;
+  transition: color 0.5s, transform 0.2s, background-color 0.2s;
+  outline: none;
+  padding: 14px 32px;
+  border: 2px solid @lightgreen;
+  border-radius: 8px;
+  &:active {
+    transform: translateY(2px);
+  }
+
+  &::after,
+  &::before {
+    border-radius: 8px;
+  }
+}
+
+// Shrink Border Button
+.shrink-border {
+  background-color: transparent;
+  color: @link-color;
+  &:hover {
+    background-color: transparent;
+    box-shadow: none;
+    color: @offwhite;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid @lightgreen;
+    transition: opacity 0.3s, border 0.3s;
+  }
+
+  &:hover::before {
+    opacity: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: 2px solid @offwhite;
+    opacity: 0;
+    z-index: -1;
+    transform: scaleX(1.1) scaleY(1.3);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+
+  &:hover::after {
+    opacity: 1;
+    transform: scaleX(1) scaleY(1);
+  }
+}
+
+// Material Bubble Button
+.material-bubble {
+  .bubble-effect(); // Mixin for bubble effect
+
+  &:hover {
+    color: @offwhite;
+
+    &::after {
+      opacity: 1;
+      transform: scale(1) translate(-10px, -70px);
+    }
+  }
+}
+
+// Mixin for Bubble Effect
+.bubble-effect() {
+  background-color: transparent;
+  color: @link-color;
+  border: none;
+  overflow: hidden;
+  box-shadow: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid @lightgreen;
+    transition: opacity 0.3s, border 0.3s;
+  }
+
+  &:hover::before {
+    opacity: 0;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 207px;
+    height: 200px;
+    background-color: lighten(@lightgreen, 10%);
+    border-radius: 50%;
+    transform: translate(-10px, -70px) scale(0.1);
+    opacity: 0;
+    z-index: -1;
+    transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
+    .breakpoint-large-down({
+      width: 700px;
+    });
+    .breakpoint-small-down({
+      width: 420px;
+    });
+  }
+}

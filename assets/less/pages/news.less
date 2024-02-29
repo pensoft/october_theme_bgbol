@@ -39,8 +39,8 @@ nav:not(.navbar){
     }
 }
 
-.news{
-    min-height: 720px;
+#layout-content.news{
+    min-height: 800px;
 }
 
 .single-news-item{
@@ -75,7 +75,7 @@ nav:not(.navbar){
         div:nth-of-type(2){
             order: 2!important;
         }
-        a{
+        a:not(.news-list-item){
             color: @link-color!important;
             background: @white-color!important;
             border-radius: 4px;
@@ -137,6 +137,10 @@ nav:not(.navbar){
             display: none;
         });
         .single-new-title{
+            h1{
+                text-align: left !important;
+                line-height: 1.3em !important;
+            }
             content: 'Other news';
             font-size: 31px;
             color: #35393E;
@@ -192,7 +196,7 @@ nav:not(.navbar){
 .info{
     color: @dark-color;
     font-size: 17px;
-    a{
+    a:not(.news-list-item){
         color: @dark-color;
     }
 }
@@ -217,17 +221,25 @@ nav:not(.navbar){
         }
     }
     .news_column{
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: relative;
-        padding: 10px 5px;
+        padding: 15px 5px;
         background: @white-color;
         box-shadow: 0px 0px 25px #00000012;
         border-radius: 10px;
-        max-width: 400px;
+        max-width: 370px;
+        min-height: 500px;
         overflow: hidden;
         margin-bottom: 16px;
 
+        .breakpoint-large-down({
+            padding: 5px 5px;
+        });
+
         .text-published{
-            padding: 20px 25px;
+            padding: 25px 30px;
             background-color: #4CC682;
             position: absolute;
             border-radius: 0px 10px;
@@ -241,6 +253,11 @@ nav:not(.navbar){
         }
     }
     .news-title{
+        h1{
+            text-align: left !important;
+            line-height: 1.3em;
+        }
+
         text-align: left;
         font-size: 21px;
         font-weight: 600;
@@ -248,6 +265,7 @@ nav:not(.navbar){
         color: #14493E;
         margin-bottom: 16px;
     }
+
     .news-content{
         text-align: left;
         font-size: 17px;
@@ -256,7 +274,7 @@ nav:not(.navbar){
         margin-bottom: 16px;
     }
     .news-read-more{
-        a{
+        a:not(.news-list-item){
             text-align: left;
             font-size: 17px;
             letter-spacing: 0px;

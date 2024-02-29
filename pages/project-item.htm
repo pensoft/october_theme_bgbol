@@ -1,0 +1,17 @@
+url = "/projects/:slug?|[a-zA-Z\-0-9]"
+layout = "default"
+title = "Projects"
+is_hidden = 0
+robot_index = "index"
+robot_follow = "follow"
+
+[siteSearchInclude]
+
+[projects_item]
+slug = "{{ :slug }}"
+
+==
+
+{% component 'siteSearchInclude' %}
+
+{% component 'projects_item' %}

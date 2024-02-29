@@ -14,9 +14,7 @@ a {
     &.no-color{
     color: @green-color;
     }
-    &:hover{
-        //opacity: 0.7;
-    }
+
 }
 
 img{
@@ -120,7 +118,6 @@ p:has(.edit-link){
 
     .header-title {
         color: @white-color !important;
-        // line-height: 1.6em;
         font-size: 50px;
 
         margin-bottom: 1rem;
@@ -130,47 +127,19 @@ p:has(.edit-link){
 
 .home{
     .header-video{
-        //position: absolute;
-        //top: 0;
-        //bottom: 0;
-        //width: 100% !important;
-        //height: 100vh !important;
-        //overflow: hidden;
-
         video{
-            /* Make video to at least 100% wide and tall */
             min-width: 100%;
             min-height: 100%;
 
-            /* Setting width & height to auto prevents the browser from stretching or squishing the video */
             width: auto;
             height: auto;
 
-            /* Center the video */
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%,-50%);
         }
 
-    }
-
-    //.slick-list{
-    //    position: relative;
-    //    top: 0;
-    //    bottom: 0;
-    //    width: 100% !important;
-    //    height: 100vh !important;
-    //    overflow: hidden;
-    //}
-
-    .slick-track{
-        //position: relative;
-        //top: 0;
-        //bottom: 0;
-        //width: 100% !important;
-        //height: 100vh !important;
-        //overflow: hidden;
     }
 }
 
@@ -306,7 +275,7 @@ p:has(.edit-link){
                 z-index: 1;
             }
         }
-        
+
         .video-carousel-3 {
             video {
                 opacity: 1;
@@ -318,7 +287,7 @@ p:has(.edit-link){
 
             }
         }
-        
+
         .video-carousel-1,  .video-carousel-2{
             video {
                 opacity: 0.85;
@@ -351,6 +320,7 @@ p:has(.edit-link){
                 cursor: pointer;
                 border: 0;
                 background: white;
+                opacity: 0.7;
                 display: block;
                 padding: 5px;
                 position: relative;
@@ -365,13 +335,13 @@ p:has(.edit-link){
 
                 &:hover, &:focus {
                     outline: none;
-                    opacity: .75;
+                    opacity: 1;
                 }
             }
 
             &.slick-active button {
                 color: @white-color;
-                opacity: .75;
+                opacity: 1;
             }
         }
         .breakpoint-huge-down({
@@ -392,8 +362,6 @@ p:has(.edit-link){
 /*
  *   HOME PROJECTS SECTION
 **/
-
-
 .projects-background{
     margin-bottom: 80px;
     padding: 40px 0 !important;
@@ -434,7 +402,10 @@ p:has(.edit-link){
     }
 
     .project-container{
-
+        
+        a:hover{
+            opacity: 0.75;
+        }
         .head-row{
             display: flex;
             align-items: center;
@@ -447,31 +418,6 @@ p:has(.edit-link){
                         margin-bottom: 18px !important;
                     });
                 }
-            }
-
-            .projects-arrows, .projects-arrows-mobile{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-right: 20px;
-                .next-arrow, .prev-arrow, .prev-arrow-mobile, .next-arrow-mobile {  
-                    margin: 0 5px;
-                    background: url('../../assets/images/left-arrow-projects.svg') no-repeat center center;
-                    background-size: contain;
-                    width: 49px;
-                    height: 49px;
-                    cursor: pointer;
-                    &:hover{
-                        opacity: 0.45;
-                    }
-                }
-                .next-arrow, .next-arrow-mobile{
-                    transform: rotate(180deg);
-                }
-
-                .breakpoint-large-down({
-                    margin-right: unset;
-                });
             }
 
             .breakpoint-small-down({
@@ -491,8 +437,10 @@ p:has(.edit-link){
                 z-index: 1;
                 border-radius: 10px;
             }
-            
+
             .project-content{
+                min-width: 80%;
+                min-height: 25%;
                 background: @white-color;
                 border-radius: 10px;
                 position: absolute;
@@ -516,7 +464,7 @@ p:has(.edit-link){
                         }
                     }
                 }
-                
+
                 .project-details{
                     text-align: left !important;
 
@@ -533,6 +481,17 @@ p:has(.edit-link){
                         color: #14493E !important;
                     }
                 }
+                
+                .project-dates, .project-keywords, .project-desc{
+                    margin-bottom: 4px;
+                    color: #707070;
+                    font-size: 18px;
+                    .subinfo{
+                        color: #14493E;
+                        font-weight: 600;
+                    }
+                }
+
                 .breakpoint-large-down({
                     max-width: unset;
                     position: relative;
@@ -541,6 +500,30 @@ p:has(.edit-link){
 
         }
 
+        .projects-arrows, .projects-arrows-mobile{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px;
+            .next-arrow, .prev-arrow, .prev-arrow-mobile, .next-arrow-mobile {
+                margin: 0 5px;
+                background: url('../../assets/images/left-arrow-projects.svg') no-repeat center center;
+                background-size: contain;
+                width: 49px;
+                height: 49px;
+                cursor: pointer;
+                &:hover{
+                    opacity: 0.45;
+                }
+            }
+            .next-arrow, .next-arrow-mobile{
+                transform: rotate(180deg);
+            }
+
+            .breakpoint-large-down({
+                margin-right: unset;
+            });
+        }   
         .slick-slide {
             background: none !important;
         }
@@ -551,6 +534,9 @@ p:has(.edit-link){
     HOME NEWS HIGHLIGHT SECTION
 */
 .highlights-news{
+    a:hover{
+        opacity: 0.75;
+    }
     letter-spacing: 0px;
     text-align: left;
 
@@ -567,17 +553,10 @@ p:has(.edit-link){
     }
 
     .news-item{
-        //max-height: 300px !important;
         background-color: #14493E0F;
         border-radius: 10px;
         margin-right: 60px;
         position: relative;
-
-        //.col-md-6{
-        //    display: flex;
-        //    flex-direction: column;
-        //    justify-content: center;
-        //}
 
         .news-title{
             font-size: 23px;
@@ -714,6 +693,42 @@ p:has(.edit-link){
         }
     }
 
+
+    .home-news-highlights{
+        width: 900px;
+        max-width: 90vw;
+    }
+
+    .news-carousel{
+        position: relative;
+        &:before {
+            content: "";
+            width: calc(~'80vw - 70%');
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.7) 25%, rgba(255, 255, 255, 0));
+            position: absolute;
+            z-index: 9;
+            left: 0;
+            top: 0;
+            .breakpoint-large-down({
+                display: none;
+            });
+        }
+        &:after {
+            content: "";
+            width: calc(~'80vw - 70%');
+            height: 100%;
+            background: linear-gradient(to left, rgba(255, 255, 255, 0.7) 25%, rgba(255, 255, 255, 0));
+            position: absolute;
+            z-index: 9;
+            right: 0;
+            top: 0;
+            .breakpoint-large-down({
+                display: none;
+            });
+        }
+    }
+
 }
 
 /*
@@ -795,34 +810,6 @@ p:has(.edit-link){
     // .breakpoint-large-down({
     //     display: block;
     // });
-    }
-
-// ??
-.bd-example {
-    position: relative;
-    padding: @padding-base-space;
-    margin: @margin-base-space -@margin-base-space;
-    border: solid #f8f9fa;
-    border-width: @border-line-width * 2;
-}
-.highlight {
-    background-color: #f8f9fa;
-    padding: @padding-base-space;
-
-    .pre {
-        padding: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-        background-color: transparent;
-        border: 0;
-        overflow: auto;
-
-        .code {
-            font-size: inherit;
-            color: #212529;
-            word-break: normal;
-        }
-    }
 }
 
 /*
@@ -910,5 +897,3 @@ now override the 3.3 new styles for modern browsers & apply opacity
     font-family: 'Raleway';
     font-size: 18px;
 }
-
-

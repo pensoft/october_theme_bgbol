@@ -36,14 +36,14 @@ use Pensoft\Projects\Models\Project;
 
 function onStart(){
     //main
+
     $this['highlights'] = Article::news()->where('published', 'true')->descPublished()->take(3)->get()->map(function($item){
         $item->content = str_limit(strip_tags($item->content), 120);
         $item->href = $item->slug;
         return $item;
     });
 
-    $this['projects'] = Project::orderBy('sort_order')->get();
-
+    $this['projects'] = Project::orderBy('sort_order')->take(4)->get();
 }
 ?>
 ==
@@ -53,7 +53,6 @@ function onStart(){
 <div class="container-fluid j-about-barcoding">
     {% component 'about-bulgarian-barcode-life' %}
 </div>
-
 
 <!-- DNA Barcoding -->
 <div class="container-fluid dna-barcoding">
@@ -71,39 +70,81 @@ function onStart(){
         <!-- Desktop -->
         <div class="container project-container project-desktop">
             <div class="row between-xs head-row">
-                <div class="projects-h">
+                <div class="projects-h row">
                     <h1 class="jumbo-h1">{{'Our projects' |_}}</h1>
                 </div>
-                <div class="projects-arrows">
-                    <div class="prev-arrow"></div>
-                    <div class="next-arrow"></div>
-                </div>
+                <button class="material-bubble">
+                    <a  href="/projects">{{'View all'|_}}</a>
+                </button>
             </div>
+            {% if projects.count > 3 %}
+            <div class="row projects-highlights">
+                {% for item in projects %}
+                <div class="project-item col-md-6">
+                    <a href="/projects/{{item.slug}}">
+                        <img src="{{ item.cover.thumb(594, 522, {'mode': 'crop'})}}" alt="News image">
+                    </a>
+                    <div class="row project-content">
+                        <div class="col-md-10 col-xs-12 project-details">
+                            <a href="/projects/{{item.slug}}"><h3>{{ item.tag }}</h3></a>
+                            <div class="project-desc">
+                                {% if item.title %}
+                                <span class="subinfo">{{'Title' |_}}:</span> {{ item.title|slice(0, 100) }}
+                                {% endif %}
+                            </div>
+                            <div class="project-dates">
+                                {% if item.start and item.end %}
+                                <div><span class="subinfo">{{'Project duration' |_}}:</span> {{item.start| date('Y')}} {% if item.end| date('Y') != item.start| date('Y') %} - {{item.end| date('Y')}} {% endif %}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-12 arrow-more">
+                            <a href="/projects/{{item.slug}}" class="arrow-more-link"></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% elseif projects.count < 4 %}
             <div class="projects-carousel">
-                {% for project in projects|batch(2) %}
+                {% for item in projects %}
                     <div class="slide">
-                        {% for item in project %}
                             <div class="project-item">
-                                <img src="{{ item.cover.thumb(594, 522, {'mode': 'crop'})}}" alt="News image">
+                                <a href="/projects/{{item.slug}}">
+                                    <img src="{{ item.cover.thumb(594, 522, {'mode': 'crop'})}}" alt="News image">
+                                </a>
                                 <div class="row project-content">
                                     <div class="col-md-10 col-xs-12 project-details">
-                                        <h3>{{ item.title }}</h3>
-                                        {{ item.content|slice(0, 100)| raw }}
+                                        <a href="/projects/{{item.slug}}"><h3>{{ item.tag }}</h3></a>
+                                        <div class="project-desc">
+                                            {% if item.title %}
+                                            <span class="subinfo">{{'Title' |_}}:</span> {{ item.title|slice(0, 100) }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="project-dates">
+                                            {% if item.start and item.end %}
+                                            <div><span class="subinfo">{{'Project duration' |_}}:</span> {{item.start| date('Y')}} {% if item.end| date('Y') != item.start| date('Y') %} - {{item.end| date('Y')}} {% endif %}</div>
+                                            {% endif %}
+                                        </div>
                                     </div>
                                     <div class="col-md-2 col-xs-12 arrow-more">
-                                        <a href="{{item.url}}" class="arrow-more-link"></a>
+                                        <a href="/projects/{{item.slug}}" class="arrow-more-link"></a>
                                     </div>
                                 </div>
                             </div>
-                        {% endfor %}
                     </div>
                 {% endfor %}
             </div>
+            <div class="projects-arrows">
+                <div class="prev-arrow"></div>
+                <div class="next-arrow"></div>
+            </div>
+            {% endif %}
         </div>
 
         <!-- Responsive -->
         <div class="container project-container project-mobile" style="display: none;">
-            <div class="row between-xs head-row">
+            <div class="row between head-row">
                 <div class="projects-h">
                     <h1 class="jumbo-h1">{{'Our projects' |_}}</h1>
                 </div>
@@ -114,18 +155,29 @@ function onStart(){
             </div>
             <div class="projects-carousel-mobile">
                 {% for item in projects %}
-                    <div class="project-item">
+                <div class="project-item">
+                    <a href="/projects/{{item.slug}}">
                         <img src="{{ item.cover.thumb(594, 522, {'mode': 'crop'})}}" alt="News image">
-                        <div class="row project-content">
-                            <div class="col-md-10 col-xs-12 project-details">
-                                <h3>{{ item.title }}</h3>
-                                {{ item.content|slice(0, 100)| raw }}
+                    </a>
+                    <div class="row project-content">
+                        <div class="col-md-10 col-xs-12 project-details">
+                            <a href="/projects/{{item.slug}}"><h3>{{ item.tag }}</h3></a>
+                            <div class="project-desc">
+                                {% if item.title %}
+                                <span class="subinfo">{{'Title' |_}}:</span> {{ item.title|slice(0, 100) }}
+                                {% endif %}
                             </div>
-                            <div class="col-md-2 col-xs-12 arrow-more">
-                                <a href="{{item.url}}" class="arrow-more-link"></a>
+                            <div class="project-dates">
+                                {% if item.start and item.end %}
+                                <div><span class="subinfo">{{'Project duration' |_}}:</span> {{item.start| date('Y')}} {% if item.end| date('Y') != item.start| date('Y') %} - {{item.end| date('Y')}} {% endif %}</div>
+                                {% endif %}
                             </div>
                         </div>
+                        <div class="col-md-2 col-xs-12 arrow-more">
+                            <a href="/projects/{{item.slug}}" class="arrow-more-link"></a>
+                        </div>
                     </div>
+                </div>
                 {% endfor %}
             </div>
         </div>
@@ -136,8 +188,8 @@ function onStart(){
 
 
 <!-- NEWS highlights Carousel -->
-<div class="container-fluid mb-4">
-    <div class="container highlights-news">
+<div class="container-fluid">
+    <div class="container ">
         <div class="highlights-head">
             <div class="subhead">
                 news
@@ -147,28 +199,36 @@ function onStart(){
                     <h1 class="jumbo-h1">{{'Our latest news'|_}}</h1>
                 </div>
                 <div class="col-md-6 col-xs-12 text-right">
-                    <a href="/news" class="btn btn-primary">{{'View all'|_}}</a>
+                    <div class="view-all-news">
+                        <button class="material-bubble">
+                            <a href="/news">{{'View all'|_}}</a>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="news-carousel">
-            {% for highlight in highlights %}
-            <div class="home-news-highlights">
-                <div class="row news-item">
-                    <div class="col-md-6 col-xs-12 news-content">
-                        <div class="news-title">{{ highlight.title }}</div>
-                        <p class="news-date">{{ highlight.published_at|date('d.m.Y') }}</p>
-                        <div class="news-description">{{ highlight.content | raw }}</div>
-                        <div class="row read-more-row">
-                            <a href="/news/{{highlight.slug}}" class="read-more">{{'Read more' |_}}</a>
-                        </div>
+    </div>
+</div>
+<div class="container-fluid highlights-news  mb-4">
+    <div class="news-carousel">
+        {% for highlight in highlights %}
+        <div class="home-news-highlights">
+            <div class="row news-item">
+                <div class="col-md-6 col-xs-12 news-content">
+                    <a href="/news/{{highlight.slug}}"><div class="news-title">{{ highlight.title }}</div></a>
+                    <p class="news-date">{{ highlight.published_at|date('d.m.Y') }}</p>
+                    <div class="news-description">{{ highlight.content | raw }}</div>
+                    <div class="row read-more-row">
+                        <a href="/news/{{highlight.slug}}" class="read-more">{{'Read more' |_}}</a>
                     </div>
-                    <div class="col-md-6 col-xs-12 home-news-cover">
+                </div>
+                <div class="col-md-6 col-xs-12 home-news-cover">
+                    <a href="/news/{{highlight.slug}}">
                         <img src="{{ highlight.cover.thumb(357, 299, {'mode': 'crop'})}}" alt="News image">
-                    </div>
+                    </a>
                 </div>
             </div>
-            {% endfor %}
         </div>
+        {% endfor %}
     </div>
 </div>

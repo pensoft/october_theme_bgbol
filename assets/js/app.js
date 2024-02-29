@@ -24,6 +24,13 @@ $(document).ready(function() {
 
     $("nav").removeClass("no-transition");
 
+    if ($('.language.active').data('lang') === 'en') {
+        $('.language-switcher').css('border-right', 'none');
+    }
+
+    if ($('.language.active').data('lang') === 'bg') {
+        $('.language-switcher').css('border-left', 'none');
+    }
 
     /*
      * Handle language change
@@ -164,6 +171,11 @@ $(document).ready(function() {
         $(value).find('a').attr( "onclick", "window.open(this.href, '_self');" )
     });
 
+    $("button").click(function (e) {
+        var location = $(this).find('a').attr('href');
+        window.open(location, '_self');
+    });
+
 	onHashChange();
 	$(window).on("hashchange", function() {
 		onHashChange();
@@ -174,26 +186,63 @@ $(document).ready(function() {
 	var count = $("h1").text().length;
 
     /* AOS Animations **/
+
     $('.intro-container h1').attr({
-        'data-aos': 'fade-down',
-        'data-aos-duration': '1000',
-        'data-aos-offset': '-1000'
+        'data-aos': 'zoom-out-up',
+        'data-aos-anchor-placement' : 'top-bottom',
+        'data-aos-duration': '5000',
+        'data-aos-delay': '350',
+        // 'data-aos-offset': '-1000'
     });
-    
+
+    // $('.intro-container h1').attr({
+    //     'data-aos': 'fade-right',
+    //     'data-aos-easing':'linear',
+    //     'data-aos-duration': '10000',
+    //     'data-aos-delay': '250',
+    //     // 'data-aos-offset': '-1000'
+    // });
+
     $('.intro-container p').attr({
         'data-aos': 'fade-up',
-        'data-aos-duration': '1000',
-        'data-aos-delay': '150',
-        'data-aos-offset': '-1000'
-    });
-    
-    $('.intro-container .btn-intro, social-links').attr({
-        'data-aos': 'zoom-in',
-        'data-aos-duration': '1000',
+        'data-aos-duration': '5000',
+        'data-aos-easing':'linear',
         'data-aos-delay': '600',
-        'data-aos-offset': '-1000'
     });
-    
+
+    $('.intro-container .btn-intro').attr({
+        'data-aos': 'zoom-in',
+        'data-aos-duration': '5000',
+        'data-aos-delay': '950',
+    });
+
+    // $('.social-links').attr({
+    //     'data-aos': 'zoom-in',
+    //     'data-aos-duration': '6000',
+    //     'data-aos-delay': '1550',
+    // });
+
+    $('.dna-barcoding-intr metabarcoding-img').attr({
+        'data-aos': 'fade-up',
+        'data-aos-delay': '1500',
+        'data-aos-duration': '12000',
+        'data-aos-easing': 'ease-out'
+    });
+
+    $('.about-bgbol .j-image').attr({
+        'data-aos': 'zoom-in',
+        'data-aos-delay': '500',
+        'data-aos-duration': '12000',
+        'data-aos-easing': 'ease-out'
+    });
+
+    $('.about-bgbol .j-content').attr({
+        'data-aos': 'fade-up',
+        'data-aos-delay': '700',
+        'data-aos-duration': '10000',
+        'data-aos-easing': 'ease-out'
+    });
+
     $('.j-about-barcoding .img-container, .dna-barcoding img, .accurate-species-identification img, .why-dna-barcoding .img-container').attr({
         'data-aos': 'fade-up',
         'data-aos-delay': '100',
@@ -206,7 +255,7 @@ $(document).ready(function() {
         'data-aos-easing': 'ease-out'
     });
 
-    $('.dna-barcoding .hp-links a.btn, .j-about-barcoding a.btn').attr({
+    $('.dna-barcoding .hp-links a.btn, .j-about-barcoding a.btn, .material-bubble').attr({
         'data-aos': 'zoom-in',
         'data-aos-delay': '500'
     });
@@ -214,16 +263,22 @@ $(document).ready(function() {
     $('.project-container, .jumbo-content, .highlights-head .row').attr({
         'data-aos': 'fade-up',
         'data-aos-duration': '1000',
-        'data-aos-delay': '100' 
+        'data-aos-delay': '100'
     });
 
     $('.news-carousel').attr({
         'data-aos': 'fade-right',
         'data-aos-duration': '800',
-        'data-aos-delay': '200' 
+        'data-aos-delay': '200'
     });
 
     $('.partner-institutions .institutions, .objectives-row, .member-card, .news_column').attr({
+        'data-aos' : 'fade-up',
+        'data-aos-duration': '600',
+        'data-aos-delay': '100'
+    });
+
+    $('.project-item').attr({
         'data-aos' : 'fade-up',
         'data-aos-duration': '600',
         'data-aos-delay': '100'
@@ -384,28 +439,28 @@ $(document).ready(function() {
 
     /* News highlights carousel **/
     $('.news-carousel').slick({
-        autoplay: true,
-        autoplaySpeed: 2000,
+        autoplay: false,
+        // autoplaySpeed: 2000,
         draggable: true,
-        pauseOnHover: true,
-        infinite: true,
-        speed: 1000,
+        // pauseOnHover: true,
         centerMode: true,
-        centerPadding: '4%',
-        slidesToShow: 1.2,
-        slidesToScroll: 1,
+        variableWidth: true,
+        infinite: true,
+        slidesToShow: 1,
         speed: 1000,
+        centerPadding: '4%',
+        slidesToScroll: 1,
+        // centerPadding: '40px',
         arrows: false,
         dots: true,
-        infinite: false,
         responsive: [
             {
                 breakpoint: 768,
                 settings: {
                     arrows: false,
                     dots: true,
-                    // centerMode: true,
-                    // centerPadding: '2%',
+                    centerMode: true,
+                    centerPadding: '2%',
                     slidesToShow: 1
                 }
             }
@@ -471,7 +526,7 @@ $(document).ready(function() {
     /* Projects carousel **/
     var width = $(window).width();
 
-    // Initialize the desktop carousel only if the width is greater than or equal to 1024
+    // // Initialize the desktop carousel only if the width is greater than or equal to 1024
     if (width >= 1024) {
         $('.projects-carousel').slick({
             slidesToShow: 2,
@@ -480,6 +535,7 @@ $(document).ready(function() {
             autoplaySpeed: 3500,
             draggable: true,
             infinite: true,
+            autoplay: false,
             nextArrow: $('.next-arrow'),
             prevArrow: $('.prev-arrow'),
             responsive: [
@@ -492,6 +548,27 @@ $(document).ready(function() {
                 }
             ]
         });
+
+        // $('.projects-carousel').slick({
+        //     slidesToShow: 2,
+        //     slidesToScroll: 1,
+        //     autoplay: true,
+        //     autoplaySpeed: 3500,
+        //     draggable: true,
+        //     infinite: true,
+        //     autoplay: false,
+        //     nextArrow: $('.next-arrow'),
+        //     prevArrow: $('.prev-arrow'),
+        //     responsive: [
+        //         {
+        //             breakpoint: 1023,
+        //             settings: {
+        //                 slidesToShow: 1,
+        //                 slidesToScroll: 1
+        //             }
+        //         }
+        //     ]
+        // });
     }
 
     // Initialize the mobile carousel or make adjustments based on width
