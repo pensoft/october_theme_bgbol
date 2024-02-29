@@ -34,7 +34,7 @@ description_limit = 0
     {% if this.theme.site_icon %}
     <link rel="icon" type="{{this.theme.site_icon.getContentType()}}" href="{{this.theme.site_icon.getPath()}}">
     {% endif %}
-    <link rel="canonical" href="{{ url_current() | lower | replace({'en/': ''}) }}">
+    <link rel="canonical" href="{{ url_current() | lower | replace({'/en/': '/'}) }}">
     <link href="{{ ['assets/less/theme.less']|theme }}" rel="stylesheet">
     <link href="{{ ['assets/css/scale.css']|theme }}" rel="stylesheet">
     <link href="{{ ['assets/css/light.css']|theme }}" rel="stylesheet">
