@@ -86,12 +86,14 @@ function onStart(){
                     </a>
                     <div class="row project-content">
                         <div class="col-md-10 col-xs-12 project-details">
-                            <a href="/projects/{{item.slug}}"><h3>{{ item.tag }}</h3></a>
-                            <div class="project-desc">
+                            <a class="project-title-full" href="/projects/{{item.slug}}">
                                 {% if item.title %}
-                                <span class="subinfo">{{'Title' |_}}:</span> {{ item.title|slice(0, 100) }}
+                                <div class="subinfo">{{item.title}}</div>
+                                {% if item.tag %}
+                                <div class="subinfo">({{item.tag}})</div>
                                 {% endif %}
-                            </div>
+                            {% endif %}
+                            </a>
                             <div class="project-dates">
                                 {% if item.start and item.end %}
                                 <div><span class="subinfo">{{'Project duration' |_}}:</span> {{item.start| date('Y')}} {% if item.end| date('Y') != item.start| date('Y') %} - {{item.end| date('Y')}} {% endif %}</div>
@@ -115,12 +117,14 @@ function onStart(){
                                 </a>
                                 <div class="row project-content">
                                     <div class="col-md-10 col-xs-12 project-details">
-                                        <a href="/projects/{{item.slug}}"><h3>{{ item.tag }}</h3></a>
-                                        <div class="project-desc">
+                                        <a class="project-title-full" href="/projects/{{item.slug}}">
                                             {% if item.title %}
-                                            <span class="subinfo">{{'Title' |_}}:</span> {{ item.title|slice(0, 100) }}
+                                            <div class="subinfo">{{item.title}}</div>
+                                            {% if item.tag %}
+                                            <div class="subinfo">({{item.tag}})</div>
                                             {% endif %}
-                                        </div>
+                                        {% endif %}
+                                        </a>
                                         <div class="project-dates">
                                             {% if item.start and item.end %}
                                             <div><span class="subinfo">{{'Project duration' |_}}:</span> {{item.start| date('Y')}} {% if item.end| date('Y') != item.start| date('Y') %} - {{item.end| date('Y')}} {% endif %}</div>
@@ -161,12 +165,14 @@ function onStart(){
                     </a>
                     <div class="row project-content">
                         <div class="col-md-10 col-xs-12 project-details">
-                            <a href="/projects/{{item.slug}}"><h3>{{ item.tag }}</h3></a>
-                            <div class="project-desc">
+                            <a class="project-title-full" href="/projects/{{item.slug}}">
                                 {% if item.title %}
-                                <span class="subinfo">{{'Title' |_}}:</span> {{ item.title|slice(0, 100) }}
+                                <div class="subinfo">{{item.title}}</div>
+                                {% if item.tag %}
+                                <div class="subinfo">({{item.tag}})</div>
                                 {% endif %}
-                            </div>
+                            {% endif %}
+                            </a>
                             <div class="project-dates">
                                 {% if item.start and item.end %}
                                 <div><span class="subinfo">{{'Project duration' |_}}:</span> {{item.start| date('Y')}} {% if item.end| date('Y') != item.start| date('Y') %} - {{item.end| date('Y')}} {% endif %}</div>
@@ -176,7 +182,7 @@ function onStart(){
                         <div class="col-md-2 col-xs-12 arrow-more">
                             <a href="/projects/{{item.slug}}" class="arrow-more-link"></a>
                         </div>
-                    </div>
+                    </div>  
                 </div>
                 {% endfor %}
             </div>
