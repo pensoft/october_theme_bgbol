@@ -43,7 +43,7 @@ function onStart(){
         return $item;
     });
 
-    $this['projects'] = Project::orderBy('sort_order')->take(4)->get();
+    $this['projects'] = Project::where('published', 'true')->orderBy('sort_order')->take(4)->get();
 }
 ?>
 ==
