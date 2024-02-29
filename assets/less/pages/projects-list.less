@@ -149,15 +149,23 @@
         a:hover{
             opacity: 0.65;
         }
+
         .img-container{
             border-radius: 6px;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
             img{
                 width: 100%;
                 height: auto;
                 object-fit: cover;
                 border-radius: 6px;
             }
+            .breakpoint-large-down({
+                display: unset;
+            });
         }
 
         .projects-list-content{
@@ -170,10 +178,10 @@
 
             .project-title{
                 line-height: 1.3em;
-                font-size: 25px;
+                font-size: 22px;
                 font-weight: 600;
                 color: #14493E;
-                margin-bottom: 20px;
+                margin-bottom: 16px;
             }
 
             .project-dates, .project-keywords, .project-desc{
@@ -278,7 +286,7 @@
             margin-bottom: 10px;
             font-size: 20px;
             color: #707070;
-            
+
             .breakpoint-large-down({
                 padding: 20px;
             })
@@ -313,3 +321,7 @@
     }
 }
 
+.section-publications p {
+    text-indent: -20px;
+    margin-left: 20px;
+}
