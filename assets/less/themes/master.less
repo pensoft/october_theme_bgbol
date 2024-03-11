@@ -176,12 +176,12 @@ p:has(.edit-link){
             font-size: 85px;
             color: @white-color !important;
             .breakpoint-laptop-down({
-                font-size: 55px;
-                line-height: 1.6em;
+                font-size: 48px;
+                line-height: 1.4em;
             });
             .breakpoint-small-down({
-                font-size: 41px;
-                line-height: 1.4em;
+                font-size: 40px;
+                line-height: 1.2em;
                 //display: none;
             });
         }
@@ -446,7 +446,7 @@ p:has(.edit-link){
                 position: absolute;
                 z-index: 69;
                 max-width: 85%;
-                padding: 10px;
+                padding: 20px 10px 10px 10px;
                 bottom: 50px;
 
                 // .record_title{
@@ -651,17 +651,13 @@ p:has(.edit-link){
     }
 
     .home-news-cover img {
-        //width: 100%;
-        //height: 100%;
+
         width: 357px;
         height: 299px;
         object-fit: cover;
         border-radius: 10px;
         max-width: 100%;
-        //.breakpoint-large-down({
-        //    //display: none !important;
-        //    //display: block;
-        //});
+
     }
 
    /* Custom slick dots for news highlights on homepage */
@@ -826,9 +822,60 @@ p:has(.edit-link){
             margin-left: unset
         });
     }
-    // .breakpoint-large-down({
-    //     display: block;
-    // });
+}
+
+/* 
+ *Back to the top arrow 
+**/
+.toTheTop {
+    background: url("../../assets/images/back-to-top.svg") no-repeat center;
+    background-size: 46px;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    display: none;
+    position: fixed;
+    bottom: 54px;
+    right: 22px;
+    z-index: 1000;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 0.7;
+    }
+
+    .breakpoint-laptop-down({
+        background-size: 44px;
+        width: 44px;
+        height: 44px;
+        bottom: 32px;
+        right: 28px;
+    });
+
+    .breakpoint-large-down({
+        background-size: 42px;
+        width: 42px;
+        height: 42px;
+        bottom: 28px;
+        right: 10px;
+    });
+}
+
+.arrow-top{
+    position: relative;
+    .toTheTop.sticky {
+        position: absolute;
+    }
+}
+@media (max-width: 912px) and (min-height: 1024px) {
+    .news-content{
+        order: 1;
+    }
+    .home-news-cover{
+        display: flex;
+        justify-content: center !important;
+        align-items: center;
+    }
 }
 
 /*

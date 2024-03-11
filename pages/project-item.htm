@@ -11,6 +11,62 @@ robot_follow = "follow"
 slug = "{{ :slug }}"
 
 ==
+<?php
+function onStart()
+{
+    use Pensoft\Projects\Models\Project;
+    use RainLab\Translate\Classes\Translator;
+
+    $translator = Translator::instance();
+    $currentLocale = $translator->getLocale();
+
+    $this['project'] = Project::where('slug', $this->param('slug'))->where('published', true)->first();
+
+    if ($this['project']) {
+        $seoTitle = $this['project']->title;
+        $seoDescription = str_limit(Html::strip($this['project']->content), 255);
+        
+        $seoKeywordsArr = $currentLocale  =='en' ? $this['project']->keywords_en : $this['project']->keywords_bg;
+        $seoKeywords = is_array($seoKeywordsArr) ? implode(', ', $seoKeywordsArr) : $seoKeywordsArr;
+
+        if (class_exists('\BennoThommo\Meta\Meta')) {
+            if ($seoTitle) {
+                \BennoThommo\Meta\Meta::set('title', $seoTitle);
+            }
+            
+            if ($seoKeywords) {
+                \BennoThommo\Meta\Meta::set('keywords', $seoKeywords);
+            }
+            
+            if ($seoDescription) {
+                \BennoThommo\Meta\Meta::set('description', $seoDescription);
+            }
+        }
+    }
+
+    if($this['project']){
+        $this['page_url'] = $this->pageUrl('');
+        $this['encoded_title'] = urlencode($this['project']['title']);
+        $this['slug'] = $this['project']['slug'];
+        \BennoThommo\Meta\Meta::set('twitter:card', 'summary_large_image');
+        \BennoThommo\Meta\Meta::set('twitter:title', $this['project']['title']);
+        \BennoThommo\Meta\Meta::set('twitter:description', str_limit(Html::strip($this['project']['content']), 255));
+        \BennoThommo\Meta\Meta::set('og:title', $this['project']['title']);
+        \BennoThommo\Meta\Meta::set('og:description', str_limit(Html::strip($this['project']['content']), 255) );
+        \BennoThommo\Meta\Meta::set('og:type', 'project');
+        \BennoThommo\Meta\Meta::set('og:url', $this->pageUrl(''));
+        
+        if($this['project']['cover']){
+        \BennoThommo\Meta\Meta::set('twitter:image', $this['project']['cover']->getThumb(600, null, ['mode' => 'auto']));
+        
+        \BennoThommo\Meta\Meta::set('og:image', $this['project']['cover']->getThumb(600, 314, ['mode' => 'crop']));
+        \BennoThommo\Meta\Meta::set('og:image:width', 600);
+        \BennoThommo\Meta\Meta::set('og:image:height', 314);
+        }
+    }
+}
+?>
+==
 
 {% component 'siteSearchInclude' %}
 

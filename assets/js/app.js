@@ -8,6 +8,7 @@ var documentHasScroll = function() {
 var width = $(window).width();
 
 $(document).ready(function() {
+    
     // $("nav").removeClass("no-transition");
 	/* MENU */
 	$('.navbar-nav').attr('id', 'menu'); // please don't remove this line
@@ -24,25 +25,21 @@ $(document).ready(function() {
 
     $("nav").removeClass("no-transition");
 
-    if ($('.language.active').data('lang') === 'en') {
-        $('.language-switcher').css('border-right', 'none');
-    }
+    // var activeLang = $('.language.active').data('lang');
 
-    if ($('.language.active').data('lang') === 'bg') {
-        $('.language-switcher').css('border-left', 'none');
-    }
+    // if (activeLang === 'en') {
+    //     console.log('asd');
+    //     $('.language-switcher').css('border-right', 'none');
+    // } else if (activeLang === 'bg') {
+    //     $('.language-switcher').css('border-left', 'none');
+    // }
 
     /*
      * Handle language change
     **/
-    function getLanguageFromUrl(url, defaultLang) {
-        var match = url.match(/^\/(bg|en)(\/|$)/);
-        return (match && match[1]) || defaultLang;
-    }
-
+   
     //update links
-    var defaultLang = 'en';
-    var currentLang = getLanguageFromUrl(window.location.pathname, defaultLang);
+    var currentLang = $('body').data('current-lang') || 'en';
 
     function updateLanguageSwitcherLinks(currentLang) {
         var regex = new RegExp('^(\/' + currentLang + ')(\/|$)');
@@ -185,6 +182,36 @@ $(document).ready(function() {
 
 	var count = $("h1").text().length;
 
+    /* Back to the top arrow **/
+    var backToTopButton = $('.toTheTop');
+    var headerImageBarHeight = $('.header-overlay-content').outerHeight();
+    var footer = $('.footer-background');
+
+    function adjustButtonPosition() {
+        var scrollDistance = $(window).scrollTop();
+        var footerPosition = footer.offset().top - $(window).height();
+
+        if (scrollDistance > headerImageBarHeight) {
+            backToTopButton.fadeIn();
+
+            if (scrollDistance < footerPosition) {
+                backToTopButton.removeClass('sticky');
+            } else {
+                backToTopButton.addClass('sticky');
+            }
+        } else {
+            backToTopButton.fadeOut();
+        }
+    }
+
+    adjustButtonPosition();
+
+    $(window).scroll(adjustButtonPosition);
+
+    backToTopButton.click(function() {
+        $('html, body').animate({ scrollTop: 0 }, 'slow');
+        return false;
+    });
     /* AOS Animations **/
 
     $('.intro-container h1').attr({

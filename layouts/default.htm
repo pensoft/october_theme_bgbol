@@ -5,6 +5,9 @@ description = "Default layout"
 [session]
 security = "all"
 
+[localePicker]
+forceUrl = 1
+
 [metaList]
 includePageMeta = 1
 escape = 1
@@ -23,6 +26,16 @@ jumbotron = "intro"
 background = "transperant"
 templates = "template3"
 description_limit = 0
+==
+<?php
+function onStart() {
+    $translator = \RainLab\Translate\Classes\Translator::instance();
+
+    $currentLang = $translator->getLocale();
+
+    $this['currentLang'] = $currentLang;
+}
+?>
 ==
 <!DOCTYPE html>
 <html>
@@ -61,27 +74,32 @@ description_limit = 0
 <!--    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick-theme.css"/>-->
 <!--    <script src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>-->
 
-    <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
-    integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-    />
-    <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
-    integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-    ></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    {% if this.page.id == 'projects-list' %}
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_green.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/plugins/monthSelect/index.js"></script>
 
-    {% if this.page.id == 'news' and is_detail_page %}
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css"
+        integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+        />
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js"
+        integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+        ></script>
+    {% endif %}
+
+    {% if (this.page.id == 'news' and is_detail_page) or this.page.id == 'project-item' %}
         {% component 'metaList' includePageMeta=false %}
     {% else %}
         {% component 'metaList' %}
     {% endif %}
+
 
     {% framework extras %}
     {% styles %}
@@ -111,7 +129,7 @@ description_limit = 0
     <!-- End Google Tag Manager -->
 </head>
 
-<body>
+<body data-current-lang="{{ currentLang }}">
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WQ4DHHL"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -165,7 +183,6 @@ description_limit = 0
 {% endif %}
 
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 
 <div id="gdpr-reload">
     {% partial 'gdpr' %}
