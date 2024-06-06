@@ -33,6 +33,7 @@ localeMeta_description[bg] = "Проектът \"Български Баркод
 <?php
 use Pensoft\Articles\Models\Article;
 use Pensoft\Projects\Models\Project;
+use Carbon\Carbon;
 
 function onStart(){
     //main
@@ -42,8 +43,15 @@ function onStart(){
         $item->href = $item->slug;
         return $item;
     });
+    
+    $now = Carbon::now();
 
-    $this['projects'] = Project::where('published', 'true')->orderBy('sort_order')->take(4)->get();
+    //$this['projects'] = Project::where('published', 'true')->orderBy('start', 'desc')->take(4)->get();
+    $this['projects'] = Project::where('published', 'true')
+                                ->where('start', '>=', $now->format('Y-m-d'))
+                                ->orderBy('start', 'asc')
+                                ->take(4)
+                                ->get();
 }
 ?>
 ==
