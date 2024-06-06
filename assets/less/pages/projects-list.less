@@ -19,7 +19,7 @@
 
         /* Pseudo-element for the icon */
         .selectize-control .selectize-input::after {
-            content: '/';
+            content: '';
             position: absolute;
             right: 16px;
             top: 50%;
@@ -423,13 +423,21 @@
             font-weight: bold;
             font-size: 35px;
             color: #14493E;
-            line-height: 1.5em;
+            line-height: 1.3em;
+            .breakpoint-large-down({
+                line-height: 1.3em;
+                font-size: 26px;
+            });
         }
         .tag-full-title{
             font-weight: 400;
             font-size: 26px;
             color: #14493E;
             line-height: 1.5em;
+            .breakpoint-large-down({
+                line-height: 1.3em;
+                font-size: 22px;
+            });
         }
         .tag_intro{
             font-family: 'Raleway';
@@ -440,6 +448,7 @@
 
             .breakpoint-large-down({
                 padding: 20px;
+                font-size: 16px;
             })
         }
         p{
