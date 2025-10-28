@@ -88,7 +88,7 @@
 
 
 
-    &.p-linkedin,  &.p-twitter, &.p-facebook{
+    &.p-linkedin,  &.p-twitter, &.p-bluesky, &.p-facebook{
       color: @white-color !important;
       display: flex;
       width: 69px;
@@ -101,16 +101,25 @@
 
     &.p-linkedin{
       font-size: 35px;
-      background-color: #14493EE0 !important;
+      background-color: #3DAF7E !important;
     }
 
     &.p-twitter{
       font-size: 25px;
-      background-color: #14493E8F !important;
+      background-color: #0F3A31 !important;
     }
+    
+    &.p-bluesky{
+      background-color: #0D3A2F !important;
+      background-image: url('../images/bluesky.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 25px 20px;
+    }
+    
     &.p-facebook{
       font-size: 35px;
-      background-color: #14493EE0 !important;
+      background-color: #1E6B52 !important;
     }
     
     &.p-facebook:hover{
@@ -121,6 +130,13 @@
     }
     
     &.p-linkedin:hover {
+      background-color: #4CC682 !important;
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      margin-left: 4px;
+    }
+    
+    &.p-bluesky:hover {
       background-color: #4CC682 !important;
       transform: scale(1.1);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
