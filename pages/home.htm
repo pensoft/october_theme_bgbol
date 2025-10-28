@@ -48,8 +48,8 @@ function onStart(){
 
     //$this['projects'] = Project::where('published', 'true')->orderBy('start', 'desc')->take(4)->get();
     $this['projects'] = Project::where('published', 'true')
-                                ->where('start', '>=', $now->format('Y-m-d'))
-                                ->orderBy('start', 'asc')
+                                //->where('end', '>=', now())
+                                ->orderBy('end', 'desc')
                                 ->take(4)
                                 ->get();
 }

@@ -5,8 +5,6 @@ learnMore = "More info"
 link = "/privacy-policy"
 theme = "dark-bottom"
 ==
-==
-
 <!-- footer content -->
 <div class="container-fluid footer-background">
     {% component 'cookieConsent' %}
@@ -16,10 +14,13 @@ theme = "dark-bottom"
                 <span>© {{'Bulgarian Barcode of Life'|_}}</span>
             </div>
             <div class="col-md-4 col-xs-12 contact-inf">
+                <span><a href="https://dashboard.mailerlite.com/forms/1236872/140951055346173418/share" class="btn btn-footer">{{'Subscribe to our newsletter'|_}}</a></span>
+            </div>
+            <div class="col-md-4 col-xs-12 contact-inf">
                 <span>{{'CONTACT'|_}}</span>
                 <span><a href="mailto:info@bgbol.org" class="btn btn-footer">{{'info@bgbol.org'|_}}</a></span>
             </div>
-            <div class="col-md-4 col-xs-12 d-flex text-center justify-content-center">
+            <div class="col-md-12 col-xs-12 d-flex text-center justify-content-center mt-2">
                 <span>{{'Designed and powered by'|_}} <a href="https://pensoft.net/" target="_blank">
                     <img class="pensoft_logo" src="{{ 'assets/images/pensoft-logo.svg'|theme }}" alt="Pensoft logo" /></a>
                 </span>
